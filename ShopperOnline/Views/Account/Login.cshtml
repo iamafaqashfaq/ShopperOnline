@@ -11,30 +11,12 @@
 </div>
 <div class="card card-style " style="margin-top: 5rem;">
     <div class="content mt-2 mb-0">
-        <div class="input-style has-icon input-style-1 input-required pb-1">
-            <i class="input-icon fa fa-user color-theme"></i>
-            <span>Username</span>
-            <em>(required)</em>
-            <input id="custom_input" type="text" placeholder="Username">
-        </div>
-        <div class="input-style has-icon input-style-1 input-required pb-1">
-            <i class="input-icon fa fa-lock color-theme"></i>
-            <span>Password</span>
-            <em>(required)</em>
-            <input id="custom_input" type="password" placeholder="Password">
-        </div>
-        <div class="input-style has-icon input-style-1 input-required pb-1">
-            <i class="input-icon fa fa-lock color-theme"></i>
-            <span>Seller Code</span>
-            <em>(required)</em>
-            <input id="custom_input" type="text" placeholder="Password">
-        </div>
-        <a id="loginBtn" class="btn btn-m mt-2 mb-4 btn-full bg-green1-dark rounded-sm text-uppercase font-900">Login</a>
-
         <div class="divider"></div>
-
-        <a href="#" class="btn btn-icon btn-m btn-full shadow-l bg-facebook text-uppercase font-900 text-left"><i class="fab fa-facebook-f text-center"></i>Login with Facebook</a>
-        <a href="#" class="btn btn-icon btn-m mt-2 btn-full shadow-l bg-twitter text-uppercase font-900 text-left"><i class="fab fa-twitter text-center"></i>Login with Twitter</a>
+        <p id="status"></p>
+        <button id="fbLoginBtn" onclick="fbLogin();" class="btn btn-icon btn-m btn-full shadow-l bg-facebook text-uppercase font-900 text-left">
+            <i class="fab fa-facebook-f text-center"></i>
+            <span id="fbLoginValue">Facebook</span>
+        </button>
 
         <div class="divider mt-4 mb-3"></div>
 
@@ -56,32 +38,122 @@
 
 @section Scripts{ 
     <script>
-        $("#loginBtn").click(function () {
-            $.ajax({
-                url: "https://shopalive.p.rapidapi.com/v1/Users/Login",
-                type: "post",
-                contentType: "application/json",
-                headers: {
-                    "x-rapidapi-key": "bd9fbd2bd1msh27bbb1cfb3648f9p1af4a1jsn0415a6279879",
-                    "x-rapidapi-host": "shopalive.p.rapidapi.com"
-                },
-                data: JSON.stringify({
-                    "username": "seller11",
-                    "password": "Test@123",
-                    "sellerCode": "SELL11"
-                }),
-                success: function (response, status) {
-                    if (status == "success") {
-                        var r = confirm(response.userID + ", " + response.roleName)
-                        if (r) {
-                            location.href = "/Home/Index"
-                        }
-                    }
-                },
-                error: function (error) {
-                    console.log(error)
+        window.fbAsyncInit = function () {
+            // FB JavaScript SDK configuration and setup
+            FB.init({
+                appId: '357684835582932', // FB App ID
+                cookie: true,  // enable cookies to allow the server to access the session
+                xfbml: true,  // parse social plugins on this page
+                version: 'v3.2' // use graph api version 2.8
+            });
+
+            // Check whether the user already logged in
+            FB.getLoginStatus(function (response) {
+                if (response.status === 'connected') {
+                    //display user data
+                    getFbUserData();
                 }
-            })
-        })
+            });
+        };
+
+        // Load the JavaScript SDK asynchronously
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+        // Facebook login with JavaScript SDK
+        function fbLogin() {
+            FB.login(function (response) {
+                if (response.authResponse) {
+                    // Get and display the user profile data
+                    getFbUserData();
+                } else {
+                    document.getElementById('status').innerHTML = 'User cancelled login or did not fully authorize.';
+                }
+            }, { scope: 'email' });
+        }
+
+        // Fetch the user profile data from facebook
+        function getFbUserData() {
+            FB.api('/me', { locale: 'en_US', fields: 'id,first_name,last_name,email,link,gender,locale,picture' },
+                function (response) {
+                    console.log(response)
+                    var data = {
+                        "FirstName": "Test 1",
+                        "LastName": "Test 2",
+                        "CellPhone": "1231231222",
+                        "HomePhone": "1231231222",
+                        "City": "a",
+                        "State": "a",
+                        "Country": "a",
+                        "Zip": "a",
+                        "Email": response.email,
+                        "Username": response.id,
+                        "password": "Test@123",
+                        "PasswordConfirmation": "Test@123",
+                        "sellercode": response.id,
+                        "SellerSubdomainCode": response.id
+                    }
+                    $.ajax({
+                        url: "https://shopalive.p.rapidapi.com/v1/Users/Login",
+                        type: "post",
+                        contentType: "application/json",
+                        headers: {
+                            "x-rapidapi-key": "bd9fbd2bd1msh27bbb1cfb3648f9p1af4a1jsn0415a6279879",
+                            "x-rapidapi-host": "shopalive.p.rapidapi.com"
+                        },
+                        data: JSON.stringify({
+                            "username": response.id,
+                            "password": "Test@123",
+                            "sellerCode": response.id
+                        }),
+                        success: function (response, status) {
+                            if (status == "success") {
+                                console.log(response)
+                            }
+                        },
+                        error: function (error) {
+                            console.log(error)
+                            $.ajax({
+                                url: "https://shopalive.p.rapidapi.com/v1/Accounts",
+                                type: "post",
+                                contentType: "application/json",
+                                headers: {
+                                    "x-rapidapi-key": "bd9fbd2bd1msh27bbb1cfb3648f9p1af4a1jsn0415a6279879",
+                                    "x-rapidapi-host": "shopalive.p.rapidapi.com"
+                                },
+                                data: JSON.stringify(data),
+                                success: function (res, status) {
+                                    if (status == "success") {
+                                        console.log(res)
+                                    }
+                                },
+                                error: function (error) {
+                                    console.log(error)
+                                }
+                            })
+                        }
+                    })
+                    
+                    document.getElementById('fbLoginValue').setAttribute("onclick", "fbLogout()");
+                    document.getElementById('fbLoginValue').innerHTML = 'Logout from Facebook';
+                    document.getElementById('status').innerHTML = '<p>Thanks for logging in, ' + response.first_name + '!</p>';
+                    //document.getElementById('userData').innerHTML = '<h2>Facebook Profile Details</h2><p><img src="' + response.picture.data.url + '"/></p><p><b>FB ID:</b> ' + response.id + '</p><p><b>Name:</b> ' + response.first_name + ' ' + response.last_name + '</p><p><b>Email:</b> ' + response.email + '</p><p><b>Gender:</b> ' + response.gender + '</p><p><b>FB Profile:</b> <a target="_blank" href="' + response.link + '">click to view profile</a></p>';                    //document.getElementById('userData').innerHTML = '<h2>Facebook Profile Details</h2><p><img src="' + response.picture.data.url + '"/></p><p><b>FB ID:</b> ' + response.id + '</p><p><b>Name:</b> ' + response.first_name + ' ' + response.last_name + '</p><p><b>Email:</b> ' + response.email + '</p><p><b>Gender:</b> ' + response.gender + '</p><p><b>FB Profile:</b> <a target="_blank" href="' + response.link + '">click to view profile</a></p>';
+                });
+        }
+
+        // Logout from facebook
+        function fbLogout() {
+            FB.logout(function () {
+                document.getElementById('fbLoginValue').setAttribute("onclick", "fbLogin()");
+                document.getElementById('fbLoginValue').innerHTML = 'Facebook';
+                //document.getElementById('userData').innerHTML = '';
+                document.getElementById('status').innerHTML = '<p>You have successfully logout from Facebook.</p>';
+            });
+        }
     </script>
 }
