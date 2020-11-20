@@ -1,0 +1,177 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Cart";
+}
+
+
+<div class="header header-demo header-logo-center  position-fixed d-flex justify-content-around  ">
+    <partial name="~/Views/Shared/_Navbar.cshtml" />
+
+</div>
+<div class="container" style="margin-top: 5rem;">
+    <div class="row">
+        <iframe width="1346" height="200" src="https://www.youtube.com/embed/c9MnSeYYtYY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+</div>
+
+<div id="preloader"><div class="spinner-border color-highlight" role="status"></div></div>
+
+<div id="page">
+    <div class="page-content">
+        <div class="card card-style">
+            <div class="content">
+                <div class="main_div " style="max-height: 350px;overflow: auto;">
+                    <div class="d-flex pb-2">
+                        <div class="mr-auto">
+                            <img src="~/images/pictures/2s.jpg" class="rounded-m shadow-xl" width="110">
+                            <a href="#" data-menu="cart-item-edit" class="color-white mt-n5 py-3 pl-2 d-block font-11"><i class="fa fa-pen pl-2 pr-2"></i> Edit Item</a>
+                        </div>
+                        <div class="ml-auto w-100 pl-3">
+                            <h5 class="font-14 font-600 opacity-80 pb-2">Your awesome product description long or short. </h5>
+                            <div class="clearfix"></div>
+                            <h1 class="font-23 font-700 float-left pt-2 ">$199<sup class="font-15 opacity-50">.99</sup></h1>
+                            <div class="float-right">
+                                <div class="input-style input-style-1 mt-1">
+                                    <span class="input-style-1-active">Qty</span>
+                                    <div class="quantity buttons_added">
+                                        <input type="button" value="-" class="minus"><input type="number" step="1" min="1" max="" name="quantity" value="1" title="Qty" class="input-text qty text" size="4" pattern="" inputmode=""><input type="button" value="+" class="plus">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex pb-2">
+                        <div class="mr-auto">
+                            <img src="~/images/pictures/20s.jpg" class="rounded-m shadow-xl" width="110">
+                            <a href="#" data-menu="cart-item-edit" class="color-white mt-n5 py-3 pl-2 d-block font-11"><i class="fa fa-pen pl-2 pr-2"></i> Edit Item</a>
+                        </div>
+                        <div class="ml-auto w-100 pl-3">
+                            <h5 class="font-14 font-600 opacity-80 pb-2">Designer Style Eyeglasses with UV protection. </h5>
+                            <div class="clearfix"></div>
+                            <h1 class="font-23 font-700 float-left pt-2 ">$1299<sup class="font-15 opacity-50">.99</sup></h1>
+                            <div class="float-right">
+                                <div class="input-style input-style-1 mt-1">
+                                    <span class="input-style-1-active">Qty</span>
+                                    <div class="quantity buttons_added">
+                                        <input type="button" value="-" class="minus"><input type="number" step="1" min="1" max="" name="quantity" value="1" title="Qty" class="input-text qty text" size="4" pattern="" inputmode=""><input type="button" value="+" class="plus">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex">
+                        <div class="mr-auto">
+                            <img src="~/images/pictures/6s.jpg" class="rounded-m shadow-xl" width="110">
+                            <a href="#" data-menu="cart-item-edit" class="color-white mt-n5 py-3 pl-2 d-block font-11"><i class="fa fa-pen pl-2 pr-2"></i> Edit Item</a>
+                        </div>
+                        <div class="ml-auto w-100 pl-3">
+                            <h5 class="font-14 font-600 opacity-80 pb-2">Retro Camera with 24 rolls of film included. </h5>
+                            <div class="clearfix"></div>
+                            <h1 class="font-23 font-700 float-left pt-2 ">$499<sup class="font-15 opacity-50">.99</sup></h1>
+                            <div class="float-right">
+                                <div class="input-style input-style-1 mt-1">
+                                    <span class="input-style-1-active">Qty</span>
+                                    <div class="quantity buttons_added">
+                                        <input type="button" value="-" class="minus"><input type="number" step="1" min="1" max="" name="quantity" value="1" title="Qty" class="input-text qty text" size="4" pattern="" inputmode=""><input type="button" value="+" class="plus">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex pb-2">
+                        <div class="mr-auto">
+                            <img src="~/images/pictures/2s.jpg" class="rounded-m shadow-xl" width="110">
+                            <a href="#" data-menu="cart-item-edit" class="color-white mt-n5 py-3 pl-2 d-block font-11"><i class="fa fa-pen pl-2 pr-2"></i> Edit Item</a>
+                        </div>
+                        <div class="ml-auto w-100 pl-3">
+                            <h5 class="font-14 font-600 opacity-80 pb-2">Your awesome product description long or short. </h5>
+                            <div class="clearfix"></div>
+                            <h1 class="font-23 font-700 float-left pt-2 ">$199<sup class="font-15 opacity-50">.99</sup></h1>
+                            <div class="float-right">
+                                <div class="input-style input-style-1 mt-1">
+                                    <span class="input-style-1-active">Qty</span>
+                                    <div class="quantity buttons_added">
+                                        <input type="button" value="-" class="minus"><input type="number" step="1" min="1" max="" name="quantity" value="1" title="Qty" class="input-text qty text" size="4" pattern="" inputmode=""><input type="button" value="+" class="plus">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex pb-2">
+                        <div class="mr-auto">
+                            <img src="~/images/pictures/2s.jpg" class="rounded-m shadow-xl" width="110">
+                            <a href="#" data-menu="cart-item-edit" class="color-white mt-n5 py-3 pl-2 d-block font-11"><i class="fa fa-pen pl-2 pr-2"></i> Edit Item</a>
+                        </div>
+                        <div class="ml-auto w-100 pl-3">
+                            <h5 class="font-14 font-600 opacity-80 pb-2">Your awesome product description long or short. </h5>
+                            <div class="clearfix"></div>
+                            <h1 class="font-23 font-700 float-left pt-2 ">$199<sup class="font-15 opacity-50">.99</sup></h1>
+                            <div class="float-right">
+                                <div class="input-style input-style-1 mt-1">
+                                    <span class="input-style-1-active">Qty</span>
+                                    <div class="quantity buttons_added">
+                                        <input type="button" value="-" class="minus"><input type="number" step="1" min="1" max="" name="quantity" value="1" title="Qty" class="input-text qty text" size="4" pattern="" inputmode=""><input type="button" value="+" class="plus">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex pb-2">
+                        <div class="mr-auto">
+                            <img src="~/images/pictures/2s.jpg" class="rounded-m shadow-xl" width="110">
+                            <a href="#" data-menu="cart-item-edit" class="color-white mt-n5 py-3 pl-2 d-block font-11"><i class="fa fa-pen pl-2 pr-2"></i> Edit Item</a>
+                        </div>
+                        <div class="ml-auto w-100 pl-3">
+                            <h5 class="font-14 font-600 opacity-80 pb-2">Your awesome product description long or short. </h5>
+                            <div class="clearfix"></div>
+                            <h1 class="font-23 font-700 float-left pt-2 ">$199<sup class="font-15 opacity-50">.99</sup></h1>
+                            <div class="float-right">
+                                <div class="input-style input-style-1 mt-1">
+                                    <span class="input-style-1-active">Qty</span>
+                                    <div class="quantity buttons_added">
+                                        <input type="button" value="-" class="minus"><input type="number" step="1" min="1" max="" name="quantity" value="1" title="Qty" class="input-text qty text" size="4" pattern="" inputmode=""><input type="button" value="+" class="plus">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="row mb-0">
+
+                        <div class="col-12"><div class="divider mt-3"></div></div>
+                        <div class="col-6 text-left"><h4>Grand Total</h4></div>
+                        <div class="col-6 text-right"><h4>$2133<sup>.98</sup></h4></div>
+                    </div>
+
+                </div>
+
+
+                <div class="divider mt-4"></div>
+
+                <a asp-action="ComponentInput" asp-controller="Store" class="btn btn-full btn-sm rounded-sm bg-highlight font-800 text-uppercase">Proceed to check out</a>
+            </div>
+
+        </div>
+        <!-- footer and footer card-->
+
+    </div>
+
+    <!-- end of page content-->
+    <!-- Be sure this is on your main visiting page, for example, the index.html page-->
+    <!-- Install Prompt for Android -->
+    <!-- Install instructions for iOS -->
+</div>
+
+<div id="footer-bar" class="footer-bar-5">
+    <a asp-action="Index" asp-controller="Home" class="active-nav"><i class="fa fa-arrow-left text-primary"></i><span>Back</span></a>
+    <a href="index-media.html"><i data-feather="image" data-feather-line="1" data-feather-size="21" data-feather-color="green1-dark" data-feather-bg="green1-fade-light"></i><span>Media</span></a>
+    <a href="index.html"><i data-feather="home" data-feather-line="1" data-feather-size="21" data-feather-color="blue2-dark" data-feather-bg="blue2-fade-light"></i><span>Home</span></a>
+    <a href="index-pages.html"><i data-feather="file" data-feather-line="1" data-feather-size="21" data-feather-color="brown1-dark" data-feather-bg="brown1-fade-light"></i><span>Pages</span></a>
+    <a href="index-settings.html"><i data-feather="settings" data-feather-line="1" data-feather-size="21" data-feather-color="gray2-dark" data-feather-bg="gray2-fade-light"></i><span>Settings</span></a>
+</div>

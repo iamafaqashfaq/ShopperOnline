@@ -1,0 +1,105 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "My Product";
+}
+
+<div class="header header-demo header-logo-center  position-fixed d-flex justify-content-around  ">
+    <partial name="~/Views/Shared/_Navbar.cshtml" />
+
+</div>
+
+<div id="preloader"><div class="spinner-border color-highlight" role="status"></div></div>
+
+<div id="page">
+    <div class="page-content">
+        <div class="card card-style " style="margin-top: 5rem;">
+            <div class="card-body">
+                <h2 class="card-title">My products</h2>
+            </div>
+            <div class="content">
+                <div class="d-flex pb-2">
+                    <div class="mr-auto">
+                        <img src="~/images/pictures/2s.jpg" class="rounded-m shadow-xl" width="110">
+                        <a href="#" data-menu="cart-item-edit" class="color-white mt-n5 py-3 pl-2 d-block font-11"><i class="fa fa-pen pl-2 pr-2"></i> Edit Item</a>
+                    </div>
+                    <div class="ml-auto w-100 pl-3">
+                        <h5 class="font-14 font-600 opacity-80 pb-2">Your awesome product description long or short. </h5>
+                        <div class="clearfix"></div>
+                        <h1 class="font-23 font-16 float-left pt-2 ">$199<sup class="font-13 opacity-50">.99</sup></h1>
+                        <div class="btn-group float-right">
+                            <button type="button" class="btn  p-1 btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Action
+                            </button>
+                            <div class="dropdown-menu">
+
+                                <a class="dropdown-item" href="#">Edit</a>
+                                <a class="dropdown-item" href="#">Delete</a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex pb-2">
+                    <div class="mr-auto">
+                        <img src="~/images/pictures/20s.jpg" class="rounded-m shadow-xl" width="110">
+                        <a href="#" data-menu="cart-item-edit" class="color-white mt-n5 py-3 pl-2 d-block font-11"><i class="fa fa-pen pl-2 pr-2"></i> Edit Item</a>
+                    </div>
+                    <div class="ml-auto w-100 pl-3">
+                        <h5 class="font-14 font-600 opacity-80 pb-2">Designer Style Eyeglasses with UV protection. </h5>
+                        <div class="clearfix"></div>
+                        <h1 class="font-23 font-16 float-left pt-2 ">$1299<sup class="font-13 opacity-50">.99</sup></h1>
+                        <div class="btn-group float-right">
+                            <button type="button" class="btn  p-1 btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Action
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#">Edit</a>
+                                <a class="dropdown-item" href="#">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex">
+                    <div class="mr-auto">
+                        <img src="~/images/pictures/6s.jpg" class="rounded-m shadow-xl" width="110">
+                        <a href="#" data-menu="cart-item-edit" class="color-white mt-n5 py-3 pl-2 d-block font-11"><i class="fa fa-pen pl-2 pr-2"></i> Edit Item</a>
+                    </div>
+                    <div class="ml-auto w-100 pl-3">
+                        <h5 class="font-14 font-600 opacity-80 pb-2">Retro Camera with 24 rolls of film included. </h5>
+                        <div class="clearfix"></div>
+                        <h1 class="font-23 font-16 float-left pt-2 ">$499<sup class="font-13 opacity-50">.99</sup></h1>
+                        <!-- Example single danger button -->
+                        <div class="btn-group float-right">
+                            <button type="button" class="btn  p-1 btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Action
+                            </button>
+                            <div class="dropdown-menu">
+
+                                <a class="dropdown-item" href="#">Edit</a>
+                                <a class="dropdown-item" href="#">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="divider mt-4"></div>
+                <a href="#" class="btn btn-full btn-sm rounded-sm bg-highlight font-800 text-uppercase">Add More Products</a>
+            </div>
+        </div>
+        <!-- footer and footer card-->
+    </div>
+    <!-- end of page content-->
+    <!-- Be sure this is on your main visiting page, for example, the index.html page-->
+    <!-- Install Prompt for Android -->
+    <!-- Install instructions for iOS -->
+</div>
+
+<div id="footer-bar" class="footer-bar-5">
+    <a asp-action="MyUser" asp-controller="Account" class="active-nav"><i class="fa fa-arrow-left text-primary"></i><span>Back</span></a>
+    <a href="index-media.html"><i data-feather="image" data-feather-line="1" data-feather-size="21" data-feather-color="green1-dark" data-feather-bg="green1-fade-light"></i><span>Media</span></a>
+    <a href="index.html"><i data-feather="home" data-feather-line="1" data-feather-size="21" data-feather-color="blue2-dark" data-feather-bg="blue2-fade-light"></i><span>Home</span></a>
+    <a href="index-pages.html"><i data-feather="file" data-feather-line="1" data-feather-size="21" data-feather-color="brown1-dark" data-feather-bg="brown1-fade-light"></i><span>Pages</span></a>
+    <a href="index-settings.html"><i data-feather="settings" data-feather-line="1" data-feather-size="21" data-feather-color="gray2-dark" data-feather-bg="gray2-fade-light"></i><span>Settings</span></a>
+</div>

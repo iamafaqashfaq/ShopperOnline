@@ -1,0 +1,51 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Seller";
+}
+
+<div class="header header-demo header-logo-center  position-fixed d-flex justify-content-around  ">
+    <partial name="~/Views/Shared/_Navbar.cshtml" />
+
+</div>
+<div class="card card-style " style="margin-top: 5rem;">
+    <div class="content mt-2 mb-0">
+        <h3 class="text-center pt-3">Login as Seller</h3>
+        <div class="input-style has-icon input-style-1 input-required pb-1">
+            <i class="input-icon fa fa-user color-theme"></i>
+            <span>Username</span>
+            <em>(required)</em>
+            <input id="custom_input" type="text" placeholder="Username">
+        </div>
+        <div class="input-style has-icon input-style-1 input-required pb-1">
+            <i class="input-icon fa fa-lock color-theme"></i>
+            <span>Password</span>
+            <em>(required)</em>
+            <input id="custom_input" type="password" placeholder="Password">
+        </div>
+
+        <a href="myuser.html" class="btn btn-m mt-2 mb-4 btn-full bg-green1-dark rounded-sm text-uppercase font-900">Login</a>
+
+        <div class="divider"></div>
+
+        <a href="#" class="btn btn-icon btn-m btn-full shadow-l bg-facebook text-uppercase font-900 text-left"><i class="fab fa-facebook-f text-center"></i>Login with Facebook</a>
+        <a href="#" class="btn btn-icon btn-m mt-2 btn-full shadow-l bg-twitter text-uppercase font-900 text-left"><i class="fab fa-twitter text-center"></i>Login with Twitter</a>
+
+        <div class="divider mt-4 mb-3"></div>
+
+        <div class="d-flex">
+            <div class="w-50 font-11 pb-2 color-theme opacity-60 pb-3 text-left"><a asp-action="SignupAsSeller" asp-controller="Account" class="color-theme">Create Account</a></div>
+            <div class="w-50 font-11 pb-2 color-theme opacity-60 pb-3 text-right"><a href="#" class="color-theme">Forgot Credentials</a></div>
+        </div>
+    </div>
+
+</div>
+
+<div id="footer-bar" class="footer-bar-5">
+    <a asp-action="Index" asp-controller="Home" class="active-nav"><i class="fa fa-arrow-left text-primary"></i><span>Back</span></a>
+    <a href="index-media.html"><i data-feather="image" data-feather-line="1" data-feather-size="21" data-feather-color="green1-dark" data-feather-bg="green1-fade-light"></i><span>Media</span></a>
+    <a href="index.html"><i data-feather="home" data-feather-line="1" data-feather-size="21" data-feather-color="blue2-dark" data-feather-bg="blue2-fade-light"></i><span>Home</span></a>
+    <a href="index-pages.html"><i data-feather="file" data-feather-line="1" data-feather-size="21" data-feather-color="brown1-dark" data-feather-bg="brown1-fade-light"></i><span>Pages</span></a>
+    <a href="index-settings.html"><i data-feather="settings" data-feather-line="1" data-feather-size="21" data-feather-color="gray2-dark" data-feather-bg="gray2-fade-light"></i><span>Settings</span></a>
+</div>

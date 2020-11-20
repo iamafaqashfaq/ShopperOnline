@@ -1,0 +1,76 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Add Product";
+}
+
+<div class="header header-demo header-logo-center  position-fixed d-flex justify-content-around  ">
+    <partial name="~/Views/Shared/_Navbar.cshtml" />
+
+</div>
+<div class="card card-style " style="margin-top: 5rem;">
+    <div class="card-header text-center"><h1>Add Product</h1></div>
+    <div class="card-body">
+
+        <div class="content mb-0">
+            <form>
+                <div class="input-style input-style-2  input-required">
+                    <span class="color-highlight">SKU</span>
+                    <em>(required)</em>
+                    <input class="form-control" type="number" placeholder="">
+                </div>
+                <div class="input-style input-style-2  input-required">
+
+                    <span class="color-highlight">PLU</span>
+                    <em>(required)</em>
+                    <input class="form-control" type="number" placeholder="">
+                </div>
+                <div class="input-style input-style-2  input-required">
+
+                    <span class="color-highlight">Barcode number</span>
+                    <em>(required)</em>
+                    <input class="form-control" type="number" placeholder="">
+                </div>
+                <div class="input-style input-style-2  input-required">
+
+                    <span class="color-highlight">Regular Price </span>
+                    <em>(required)</em>
+                    <input class="form-control" type="number" placeholder="">
+                </div>
+                <div class="input-style input-style-2  input-required">
+
+                    <span class="color-highlight">Sale Price</span>
+                    <em>(required)</em>
+                    <input class="form-control" type="number" placeholder="">
+                </div>
+                <div class="input-style input-style-2  input-required">
+
+                    <span class="color-highlight">Product Name</span>
+                    <em>(required)</em>
+                    <input class="form-control" type="name" placeholder="">
+                </div>
+
+                <div class="input-style input-style-2  input-required">
+                    <span class="color-highlight">Description</span>
+                    <em>(required)</em>
+                    <input class="form-control" type="name" placeholder="">
+                </div>
+                <div class="file-data pt-3">
+                    <input type="file" class="upload-file bg-highlight shadow-s rounded-s " accept="image/*">
+                    <p class="upload-file-text color-white">Upload Image</p>
+                    <img src="~/images/empty.png">
+                </div>
+                <button type="submit" class="btn  btn-primary float-right">Add Product</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="footer-bar" class="footer-bar-5">
+    <a asp-action="MyUser" asp-controller="Account" class="active-nav"><i class="fa fa-arrow-left text-primary"></i><span>Back</span></a>
+    <a href="index-media.html"><i data-feather="image" data-feather-line="1" data-feather-size="21" data-feather-color="green1-dark" data-feather-bg="green1-fade-light"></i><span>Media</span></a>
+    <a href="index.html"><i data-feather="home" data-feather-line="1" data-feather-size="21" data-feather-color="blue2-dark" data-feather-bg="blue2-fade-light"></i><span>Home</span></a>
+    <a href="index-pages.html"><i data-feather="file" data-feather-line="1" data-feather-size="21" data-feather-color="brown1-dark" data-feather-bg="brown1-fade-light"></i><span>Pages</span></a>
+    <a href="index-settings.html"><i data-feather="settings" data-feather-line="1" data-feather-size="21" data-feather-color="gray2-dark" data-feather-bg="gray2-fade-light"></i><span>Settings</span></a>
+</div>

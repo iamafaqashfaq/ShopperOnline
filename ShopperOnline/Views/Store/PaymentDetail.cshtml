@@ -1,0 +1,186 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Payment Detail";
+}
+
+<div id="preloader"><div class="spinner-border color-highlight" role="status"></div></div>
+
+<div id="page">
+
+    <!-- header and footer bar go here-->
+    <div class="header header-demo header-logo-center  position-fixed d-flex justify-content-around  ">
+        <partial name="~/Views/Shared/_Navbar.cshtml" />
+
+    </div>
+    <div id="footer-bar" class="footer-bar-5">
+        <a asp-action="ComponentInput" asp-controller="Store" class="active-nav"><i class="fa fa-arrow-left text-primary"></i><span>Back</span></a>
+        <a href="index-media.html"><i data-feather="image" data-feather-line="1" data-feather-size="21" data-feather-color="green1-dark" data-feather-bg="green1-fade-light"></i><span>Media</span></a>
+        <a href="index.html"><i data-feather="home" data-feather-line="1" data-feather-size="21" data-feather-color="blue2-dark" data-feather-bg="blue2-fade-light"></i><span>Home</span></a>
+        <a href="index-pages.html" class="active-nav"><i data-feather="file" data-feather-line="1" data-feather-size="21" data-feather-color="brown1-dark" data-feather-bg="brown1-fade-light"></i><span>Pages</span></a>
+        <a href="index-settings.html"><i data-feather="settings" data-feather-line="1" data-feather-size="21" data-feather-color="gray2-dark" data-feather-bg="gray2-fade-light"></i><span>Settings</span></a>
+    </div>
+
+    <div class="page-content">
+    <div class="card card-style" style="margin-top: 5rem;">
+        <div class="content">
+            <h3>Payment Method</h3>
+            <p>
+                Please select your payment method. This page is a dummy template.
+            </p>
+            <div class="input-style input-style-2 mb-3 input-required">
+                <span>Payment Type</span>
+                <em><i class="fa fa-angle-down"></i></em>
+                <select class="form-control">
+                    <option value="1">Credit Card</option>
+                    <option value="1">PayPal</option>
+                    <option value="1">Payoneer</option>
+                    <option value="1">Stripe</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="card card-style">
+        <div class="content">
+            <h4>Payment Details</h4>
+            <p>
+                Please select your payment method. This page is a dummy template.
+            </p>
+            <div class="input-style input-style-2 input-required mb-3">
+                <span class="color-highlight">Cardholder Name</span>
+                <em>(required)</em>
+                <input class="form-control" type="name" placeholder="Joe Purchases">
+            </div>
+            <div class="input-style input-style-2 input-required mb-3">
+                <span class="color-highlight">Card Number</span>
+                <em>(required)</em>
+                <input class="form-control" type="name" placeholder="1234 5678 9012 3456">
+            </div>
+            <div class="row mb-0">
+                <div class="col-7">
+                    <div class="input-style input-style-2 input-required mb-3">
+                        <span class="color-highlight">Valid Thru</span>
+                        <em>(required)</em>
+                        <input class="form-control" type="name" placeholder="12/05">
+                    </div>
+                </div>
+                <div class="col-5">
+                    <div class="input-style input-style-2 input-required mb-3">
+                        <span class="color-highlight">CVV</span>
+                        <em>(required)</em>
+                        <input class="form-control" type="name" placeholder="123">
+                    </div>
+
+                    <a asp-action="Invoice" asp-controller="Store" class="btn btn-sm btn-primary float-right mb-4 ">Next</a>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- footer and footer card-->
+    <div class="footer" data-menu-load="menu-footer.html"></div>
+</div>
+</div>
+<!-- end of page content-->
+
+<div id="cart-item-edit"
+     class="menu menu-box-bottom menu-box-detached rounded-m"
+     data-menu-height="440"
+     data-menu-effect="menu-over">
+
+    <div class="content">
+        <div class="d-flex">
+            <div class="mr-auto">
+                <img src="images/pictures/13s.jpg" class="rounded-m shadow-xl" width="110">
+            </div>
+            <div class="ml-auto w-100 pl-3">
+                <h5 class="font-14 font-600 opacity-80 pb-2">Laptop with Full Accessory Set, 256GB Memory and 2TB SSD Storage. </h5>
+                <div class="clearfix"></div>
+                <h1 class="font-24 font-700 pt-1 ">$499<sup class="font-15 opacity-50">.99</sup></h1>
+            </div>
+        </div>
+        <div class="divider mt-4 mb-3"></div>
+        <div class="row mb-2">
+            <div class="col-12">
+                <div class="input-style input-style-1">
+                    <span class="input-style-1-active">CPU Model and Power</span>
+                    <em><i class="fa fa-angle-down"></i></em>
+                    <select>
+                        <option value="default" disabled>Select a Value</option>
+                        <option value="1" selected>i3, Dual Core, 1.3GHZ</option>
+                        <option value="2">i5, Dual Core, 2.3GHZ - $199.99</option>
+                        <option value="3">i7, Dual Core, 3.3GHZ - $399.99</option>
+                        <option value="4">i9, Dual Core, 4.3GHZ - $599.99</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="input-style input-style-1">
+                    <span class="input-style-1-active">Storage Capacity</span>
+                    <em><i class="fa fa-angle-down"></i></em>
+                    <select>
+                        <option value="default" disabled>Select a Value</option>
+                        <option value="1" selected>256GB SSD</option>
+                        <option value="2">512 SSD - $199.99</option>
+                        <option value="2">1TB SSD - $299.99</option>
+                        <option value="2">2TB SSD - $399.99</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="input-style input-style-1">
+                    <span class="input-style-1-active">Memory Capacity</span>
+                    <em><i class="fa fa-angle-down"></i></em>
+                    <select>
+                        <option value="default" disabled>Select a Value</option>
+                        <option value="1" selected>8GB DDDR4</option>
+                        <option value="2">16GB DDDR4 - $199.99</option>
+                        <option value="2">32GB DDDR4 - $299.99</option>
+                        <option value="2">64GB DDDR4 - $399.99</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="input-style input-style-1">
+                    <span class="input-style-1-active">Extend Warranty</span>
+                    <em><i class="fa fa-angle-down"></i></em>
+                    <select>
+                        <option value="default" disabled>Select a Value</option>
+                        <option value="1" selected>2 Years Warranty - Included</option>
+                        <option value="2">1+ Year Warranty - $199.00</option>
+                        <option value="3">2+ Year Warranty - $299.00</option>
+                        <option value="4">3+ Year Warranty - $399.00</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <a href="#" class="btn btn-full bg-highlight btn-m rounded-sm shadow-xl text-uppercase font-900 mb-4">Apply Changes</a>
+        <div class="divider mb-3"></div>
+        <a href="#" class="btn btn-full bg-gransparent color-red2-dark btn-m  text-uppercase font-900 mb-2">Remove product</a>
+    </div>
+</div>
+
+
+<div id="menu-share"
+     class="menu menu-box-bottom menu-box-detached rounded-m"
+     data-menu-load="menu-share.html"
+     data-menu-height="420"
+     data-menu-effect="menu-over">
+</div>
+
+<div id="menu-highlights"
+     class="menu menu-box-bottom menu-box-detached rounded-m"
+     data-menu-load="menu-colors.html"
+     data-menu-height="510"
+     data-menu-effect="menu-over">
+</div>
+
+<div id="menu-main"
+     class="menu menu-box-right menu-box-detached rounded-m"
+     data-menu-width="260"
+     data-menu-load="menu-main.html"
+     data-menu-active="nav-pages"
+     data-menu-effect="menu-over">
+</div>  

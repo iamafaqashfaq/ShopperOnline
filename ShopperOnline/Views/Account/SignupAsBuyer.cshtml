@@ -1,0 +1,55 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Signup As Buyer";
+}
+
+<div class="header header-demo header-logo-center  position-fixed d-flex justify-content-around  ">
+    <partial name="~/Views/Shared/_Navbar.cshtml" />
+
+</div>
+
+<div id="preloader"><div class="spinner-border color-highlight" role="status"></div></div>
+
+<div class="card card-style " style="margin-top: 5rem;">
+    <div class="content mb-0 mt-1">
+        <h3 class="text-center pt-3">Sign Up as Buyer</h3>
+        <div class="input-style has-icon input-style-1 input-required">
+            <i class="input-icon fa fa-user color-theme"></i>
+            <span>Username</span>
+            <em>(required)</em>
+            <input id="custom_input" type="name" placeholder="Username">
+        </div>
+        <div class="input-style has-icon input-style-1 input-required">
+            <i class="input-icon fa fa-at color-theme"></i>
+            <span>Email</span>
+            <em>(required)</em>
+            <input id="custom_input" type="email" placeholder="Email">
+        </div>
+        <div class="input-style has-icon input-style-1 input-required">
+            <i class="input-icon fa fa-lock color-theme"></i>
+            <span>Password</span>
+            <em>(required)</em>
+            <input id="custom_input" type="password" placeholder="Choose a Password">
+        </div>
+        <div class="input-style has-icon input-style-1 input-required mb-4">
+            <i class="input-icon fa fa-lock color-theme"></i>
+            <span>Password</span>
+            <em>(required)</em>
+            <input id="custom_input" type="password" placeholder="Confirm your Password">
+        </div>
+
+        <a href="#" class="btn btn-m btn-full rounded-sm shadow-l bg-green1-dark text-uppercase font-900">Create account</a>
+
+        <div class="divider"></div>
+
+        <p class="text-center">
+            <a asp-action="LoginAsBuyer" asp-controller="Account" class="color-highlight opacity-80 font-12">Already Registered? Sign in Here</a>
+        </p>
+
+        <a href="#" class="btn btn-icon btn-m btn-full rounded-s shadow-l bg-facebook text-uppercase font-900 text-left"><i class="fab fa-facebook-f text-center"></i>Register with Facebook</a>
+        <a href="#" class="btn btn-icon btn-m mt-2 mb-4 btn-full rounded-s shadow-l bg-twitter text-uppercase font-900 text-left"><i class="fab fa-twitter text-center"></i>Register with Twitter</a>
+
+    </div>
+</div>
