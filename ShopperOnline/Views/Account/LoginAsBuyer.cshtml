@@ -85,8 +85,8 @@
                     "State": "a",
                     "Country": "a",
                     "Zip": "22178",
-                    "CellPhone": "23233434344",
-                    "HomePhone": "13234233434",
+                    "CellPhone": "423425345345",
+                    "HomePhone": "5345345436456",
                     "Email": response.email,
                     "Username": response.id,
                     "password": "Test@123",
@@ -161,7 +161,7 @@
                     if (status == "success") {
                         document.getElementById('fbLoginBtn').setAttribute("onclick", "fbLogout()");
                         document.getElementById('fbLoginValue').innerHTML = 'Logout from Facebook';
-                        document.getElementById('status').innerHTML = '<p>Thanks for logging in, ' + data.FirstName + '!</p>';
+                        document.getElementById('status').innerHTML = '<p>Thanks for logging in, ' + data.FirstName + '!</p> <br> <p>You logged in a Buyer Account and your Seller Code is ' + data.sellercode + '</p>';
                     }
                 }).fail(function () {
                     FB.logout(function () {

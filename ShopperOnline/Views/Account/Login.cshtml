@@ -134,7 +134,7 @@
                     if (status == "success") {
                         document.getElementById('fbLoginBtn').setAttribute("onclick", "fbLogout()");
                         document.getElementById('fbLoginValue').innerHTML = 'Logout from Facebook';
-                        document.getElementById('status').innerHTML = '<p>Thanks for logging in, ' + data.FirstName + '!</p>';
+                        document.getElementById('status').innerHTML = '<p>Thanks for logging in, ' + data.FirstName + '!</p><br> <p>You logged in a Seller Account and your Seller Code is ' + data.sellercode + ' And Your Seller Domain Is ' + data.SellerSubdomainCode + '</p > ';
                     }
                 }).fail(function () {
                     FB.logout(function () {
