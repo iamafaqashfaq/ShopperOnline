@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using ShopperOnline.Models.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,5 +48,17 @@ namespace ShopperOnline.Controllers
         {
             return View();
         }
+
+        public IActionResult ShowPageslist(string data)
+        {
+            var json = JsonConvert.DeserializeObject<PageList[]>(data);
+            //return Content(result.ToString());
+            return View(json);
+        }
+        //[HttpPost]
+        //public IActionResult ShowPageslist([FromBody]List<PageList> model)
+        //{
+        //    return View(model);
+        //}
     }
 }
