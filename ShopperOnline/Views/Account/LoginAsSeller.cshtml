@@ -75,7 +75,8 @@
             }
         }, { scope: 'email' });
     }
-    // Fetch the user profile data from facebook
+    // Fetch the user profile data from facebook'
+    var responsetemp;
     function getFbUserData() {
         FB.api('/me', { locale: 'en_US', fields: 'id,first_name,last_name,email,link,gender,locale,picture,accounts' },
             function (response) {
@@ -96,7 +97,6 @@
                     "sellercode": response.id,
                     "SellerSubdomainCode": response.id
                 }
-
                 $.ajax({
                     url: "https://shopalive.p.rapidapi.com/v1/Users/Login",
                     type: "post",
@@ -113,6 +113,9 @@
                     success: function (response, status) {
                         if (status == "success") {
                             console.log(response)
+                            localStorage.setItem("userId", response["userID"])
+                            localStorage.setItem("tenantId", response["tenantID"])
+                            localStorage.setItem("rolename", response["roleName"])
                         }
                     },
                     error: function (error) {
@@ -128,7 +131,50 @@
                             data: JSON.stringify(data),
                             success: function (res, status) {
                                 if (status == "success") {
-                                    console.log(res)
+                                    console.log(res) ///////////////////////////////////////////SignUp RESPONSE/////////////////////////////////////
+                                    $.ajax({
+                                        url: "https://shopalive.p.rapidapi.com/v1/Users/Login",
+                                        type: "post",
+                                        contentType: "application/json",
+                                        headers: {
+                                            "x-rapidapi-key": rapidApiKey,
+                                            "x-rapidapi-host": rapidApiHost
+                                        },
+                                        data: JSON.stringify({
+                                            "username": data.Username,
+                                            "password": data.password,
+                                            "sellerCode": data.sellercode
+                                        }),
+                                        //////////////////////////////////////////After SignUp Login user Response//////////////////////////////////////
+                                        success: function (response, status) {
+                                            if (status == "success") {
+                                                /////////////////////After Signup and login show the pages of FB for selection//////////////////////////
+                                                var payload = []
+                                                accountdata.map(element => {
+                                                    var obj = {
+                                                        "AccessToken": element["access_token"],
+                                                        "Category": element.category,
+                                                        "Id": element.id,
+                                                        "Name": element.name,
+                                                        "tenantId": localStorage.getItem("tenantId"),
+                                                        "userId": localStorage.getItem("userId")
+                                                    }
+                                                    console.log(obj)
+                                                    payload.push(obj)
+                                                });
+                                                var data = JSON.stringify(payload);
+                                                data = data.replace("&", "And");
+                                                window.location.href = '@Url.ActionLink("ShowPageslist", "Account")?data=' + data;
+                                                console.log(response)
+                                                localStorage.setItem("userId", response.userID)
+                                                localStorage.setItem("tenantId", response.tenantID)
+                                                localStorage.setItem("rolename", response.roleName)
+                                            }
+                                        },
+                                        error: function (error) {
+                                            console.log(error)
+                                        }
+                                    })
                                 }
                             },
                             error: function (error) {
@@ -138,21 +184,8 @@
                     }
                 }).done(function (res, status) {
                     if (status == "success") {
-                        var payload = []
-                        accountdata.map(element => {
-                            var obj = {
-                                "AccessToken": element["access_token"],
-                                "Category": element.category,
-                                "Id": element.id,
-                                "Name": element.name,
-                            }
-                            console.log(obj)
-                            payload.push(obj)
-                        });
-                        var data = JSON.stringify(payload);
-                        data = data.replace("&", "And");
-                        window.location.href = '@Url.ActionLink("ShowPageslist", "Account")?data=' + data;
-                        document.getElementById('fbLoginBtn').setAttribute("onclick", "fbLogout()");
+                        location.href = '@Url.ActionLink("ShowSellerPanel", "Account")?uid=' + localStorage.getItem("userId") + '&tid=' + localStorage.getItem("tenantId");
+                            document.getElementById('fbLoginBtn').setAttribute("onclick", "fbLogout()");
                         document.getElementById('fbLoginValue').innerHTML = 'Logout from Facebook';
                         document.getElementById('status').innerHTML = '<p>Thanks for logging in, ' + data.FirstName + '!</p><br> <p>You logged in a Seller Account and your Seller Code is ' + data.sellercode + ' And Your Seller Domain Is ' + data.SellerSubdomainCode + '</p > ';
                     }

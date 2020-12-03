@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ShopperOnline.Models.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Json;
 using System.Threading.Tasks;
 
 namespace ShopperOnline.Controllers
@@ -32,12 +35,28 @@ namespace ShopperOnline.Controllers
         {
             return View();
         }
-
-        public IActionResult AddProduct()
+        public IActionResult AddProduct(string uid, string tid, string systemPageId, string pageId)
         {
-            return View();
+            var showProductVM = new ShowProductVM
+            {
+                Uid = uid,
+                Tid = tid,
+                PageId = pageId,
+                SystemPageId = systemPageId
+            };
+            return View(showProductVM);
         }
-
+        public IActionResult ShowProduct(string uid, string tid, string pageId, string systemPageId)
+        {
+            var showProductVM = new ShowProductVM
+            {
+                Uid = uid,
+                Tid = tid,
+                PageId = pageId,
+                SystemPageId = systemPageId
+            };
+            return View(showProductVM);
+        }
 
     }
 }

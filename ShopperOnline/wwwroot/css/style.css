@@ -2591,6 +2591,11 @@ img.mx-auto {
     background-color: rgba(0, 0, 0, 0.05);
     margin-bottom: 30px;
 }
+.e:hover {
+    background-color: lightgray;
+    transition:all .6s;
+}
+
 
 .divider-margins {
     margin: 0px 17px 30px 17px;

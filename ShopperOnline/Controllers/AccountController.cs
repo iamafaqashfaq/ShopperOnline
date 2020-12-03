@@ -55,6 +55,15 @@ namespace ShopperOnline.Controllers
             //return Content(result.ToString());
             return View(json);
         }
+        public IActionResult ShowSellerPanel(string uid, string tid)
+        {
+            var showSellerPanelVM = new ShowSellerPanelVM
+            {
+                Uid = uid,
+                Tid = tid
+            };
+            return View(showSellerPanelVM);
+        }
         //[HttpPost]
         //public IActionResult ShowPageslist([FromBody]List<PageList> model)
         //{

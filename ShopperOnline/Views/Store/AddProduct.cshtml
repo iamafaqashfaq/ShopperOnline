@@ -4,73 +4,122 @@
 @{
     ViewData["Title"] = "Add Product";
 }
-
+@model ShopperOnline.Models.ViewModel.ShowProductVM
 <div class="header header-demo header-logo-center  position-fixed d-flex justify-content-around  ">
     <partial name="~/Views/Shared/_Navbar.cshtml" />
-
 </div>
 <div class="card card-style " style="margin-top: 5rem;">
-    <div class="card-header text-center"><h1>Add Product</h1></div>
-    <div class="card-body">
-
-        <div class="content mb-0">
-            <form>
-                <div class="input-style input-style-2  input-required">
-                    <span class="color-highlight">SKU</span>
-                    <em>(required)</em>
-                    <input class="form-control" type="number" placeholder="">
-                </div>
-                <div class="input-style input-style-2  input-required">
-
-                    <span class="color-highlight">PLU</span>
-                    <em>(required)</em>
-                    <input class="form-control" type="number" placeholder="">
-                </div>
-                <div class="input-style input-style-2  input-required">
-
-                    <span class="color-highlight">Barcode number</span>
-                    <em>(required)</em>
-                    <input class="form-control" type="number" placeholder="">
-                </div>
-                <div class="input-style input-style-2  input-required">
-
-                    <span class="color-highlight">Regular Price </span>
-                    <em>(required)</em>
-                    <input class="form-control" type="number" placeholder="">
-                </div>
-                <div class="input-style input-style-2  input-required">
-
-                    <span class="color-highlight">Sale Price</span>
-                    <em>(required)</em>
-                    <input class="form-control" type="number" placeholder="">
-                </div>
-                <div class="input-style input-style-2  input-required">
-
-                    <span class="color-highlight">Product Name</span>
-                    <em>(required)</em>
-                    <input class="form-control" type="name" placeholder="">
-                </div>
-
-                <div class="input-style input-style-2  input-required">
-                    <span class="color-highlight">Description</span>
-                    <em>(required)</em>
-                    <input class="form-control" type="name" placeholder="">
-                </div>
-                <div class="file-data pt-3">
-                    <input type="file" class="upload-file bg-highlight shadow-s rounded-s " accept="image/*">
-                    <p class="upload-file-text color-white">Upload Image</p>
-                    <img src="~/images/empty.png">
-                </div>
-                <button type="submit" class="btn  btn-primary float-right">Add Product</button>
-            </form>
+    <!-- header and footer bar go here-->
+    <div class="page-content">
+        <div class="page-title page-title-small">
+            <h2><a href="#" data-back-button><i class="fa fa-arrow-left"></i></a>Add Product</h2>
+            <a href="#" data-menu="menu-main" class="bg-fade-gray1-dark shadow-xl preload-img" data-src="images/avatars/5s.png"></a>
         </div>
+        <div class="card header-card shape-rounded" data-card-height="150">
+            <div class="card-overlay bg-highlight opacity-95"></div>
+            <div class="card-overlay dark-mode-tint"></div>
+            <div class="card-bg preload-img" data-src="images/pictures/20s.jpg"></div>
+        </div>
+        <div class="card card-style">
+
+            <div class="content">
+                <form class="rounded-sm font-800 text-uppercase">
+                    <div class="input-style input-style-2  input-required">
+                        <span class="color-highlight">SKU</span>
+                        <em>(required)</em>
+                        <input class="form-control" id="sku" name="sku" type="text" placeholder="SKU">
+                    </div>
+                    <div class="input-style input-style-2  input-required">
+
+                        <span class="color-highlight">PLU</span>
+                        <em>(required)</em>
+                        <input class="form-control" id="plu" name="plu" type="text" placeholder="PLU">
+                    </div>
+                    <div class="input-style input-style-2  input-required">
+
+                        <span class="color-highlight">Barcode Number</span>
+                        <em>(required)</em>
+                        <input class="form-control" id="barcode" name="barcodeNumber" type="text" placeholder="Barcode">
+                    </div>
+                    <div class="input-style input-style-2  input-required">
+
+                        <span class="color-highlight">Product Name</span>
+                        <em>(required)</em>
+                        <input class="form-control name" id="name" name="name" type="text" placeholder="Product Name">
+                    </div>
+                    <div class="input-style input-style-2  input-required">
+
+                        <span class="color-highlight">Regular Price </span>
+                        <em>(required)</em>
+                        <input class="form-control" id="rprice" name="regularPrice" type="text" placeholder="Regular Price">
+                    </div>
+                    <div class="input-style input-style-2  input-required">
+
+                        <span class="color-highlight">Sale Price</span>
+                        <em>(required)</em>
+                        <input class="form-control" id="sprice" name="salePrice" type="text" placeholder="Sale Price">
+                    </div>
+                    <div class="input-style input-style-2  input-required">
+                        <span class="color-highlight">Description</span>
+                        <em>(required)</em>
+                        <input class="form-control" id="description" name="description" type="text" placeholder="Description">
+                    </div>
+                    <button type="button" class="addproduct btn  btn-primary float-right">Add Product</button>
+                </form>
+            </div>
+        </div>
+
     </div>
 </div>
 
 <div id="footer-bar" class="footer-bar-5">
-    <a asp-action="MyUser" asp-controller="Account" class="active-nav"><i class="fa fa-arrow-left text-primary"></i><span>Back</span></a>
-    <a href="index-media.html"><i data-feather="image" data-feather-line="1" data-feather-size="21" data-feather-color="green1-dark" data-feather-bg="green1-fade-light"></i><span>Media</span></a>
-    <a href="index.html"><i data-feather="home" data-feather-line="1" data-feather-size="21" data-feather-color="blue2-dark" data-feather-bg="blue2-fade-light"></i><span>Home</span></a>
-    <a href="index-pages.html"><i data-feather="file" data-feather-line="1" data-feather-size="21" data-feather-color="brown1-dark" data-feather-bg="brown1-fade-light"></i><span>Pages</span></a>
-    <a href="index-settings.html"><i data-feather="settings" data-feather-line="1" data-feather-size="21" data-feather-color="gray2-dark" data-feather-bg="gray2-fade-light"></i><span>Settings</span></a>
+    <a asp-action="index" asp-controller="Home" class="active-nav"><i class="fa fa-arrow-left text-primary"></i><span>Back</span></a>
+    <a asp-action="index" asp-controller="Home"><i data-feather="home" data-feather-line="1" data-feather-size="21" data-feather-color="blue2-dark" data-feather-bg="blue2-fade-light"></i><span>Home</span></a>
 </div>
+@section Scripts{
+    <script>
+        $(".addproduct").click(function () {
+            console.log("min itha");
+            var sku = document.getElementById("sku").value;
+            var plu = document.getElementById("plu").value;
+            var barcode = document.getElementById("barcode").value;
+            var name = document.getElementById("name").value;
+            var sprice = document.getElementById("sprice").value;
+            var rprice = document.getElementById("rprice").value;
+            var description = document.getElementById("description").value;
+            var location = ['@Model.SystemPageId'];
+            $.ajax({
+                url: "https://shopalive.p.rapidapi.com/v1/Items",
+            type: "post",
+            data: JSON.stringify({
+                "sku": sku,
+                "plu": plu,
+                "barcodeNumer": barcode,
+                "Name": name,
+                "regularPrice": sprice,
+                "salePrice": rprice,
+                "description": description,
+                "locations": location
+             }),
+            contentType: "application/json",
+            headers: {
+                "x-rapidapi-key": rapidApiKey,
+                "B2B-TENANT-ID": '@Model.Tid',
+                "B2B-USER-ID": '@Model.Uid',
+                "x-rapidapi-host": rapidApiHost
+            },
+            success: function (res, status) {
+                if (status == "success") {
+                    console.log(res)
+                    alert("Item Add successfully");
+                    window.location.href = '@Url.ActionLink("ShowProduct", "Store")?uid=' + '@Model.Uid' + '&tid=' + '@Model.Tid' + '&PageId=' + '@Model.PageId' + '&SystemPageId='+'@Model.SystemPageId';
+                }
+            },
+            error: function (error) {
+                console.log(error)
+                alert("Item Not Add Please Enter Unique Values");
+            }
+        });
+        })
+    </script>
+}
