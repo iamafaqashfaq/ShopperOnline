@@ -4035,7 +4035,9 @@
                                     i < l;
                                     i++
                                 )
-                                    (n = t[i]), ((1 < e && 0 < i % e) || (i % e == 0 && l <= i + e)) && i !== l - 1 && delete n.label, h.push(n);
+                                    (n = t[i]), ((1 < e && 0 < i % e) || (i % e == 0 && l <= i + e)) && i !== l - 1 &&
+
+                                        n.label, h.push(n);
                                 return h;
                             },
                             draw: function (S) {

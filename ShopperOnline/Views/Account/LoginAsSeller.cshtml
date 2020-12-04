@@ -27,15 +27,12 @@
 
 <div id="footer-bar" class="footer-bar-5">
     <a asp-action="Index" asp-controller="Home" class="active-nav"><i class="fa fa-arrow-left text-primary"></i><span>Back</span></a>
-    <a href="index-media.html"><i data-feather="image" data-feather-line="1" data-feather-size="21" data-feather-color="green1-dark" data-feather-bg="green1-fade-light"></i><span>Media</span></a>
-    <a href="index.html"><i data-feather="home" data-feather-line="1" data-feather-size="21" data-feather-color="blue2-dark" data-feather-bg="blue2-fade-light"></i><span>Home</span></a>
-    <a href="index-pages.html"><i data-feather="file" data-feather-line="1" data-feather-size="21" data-feather-color="brown1-dark" data-feather-bg="brown1-fade-light"></i><span>Pages</span></a>
-    <a href="index-settings.html"><i data-feather="settings" data-feather-line="1" data-feather-size="21" data-feather-color="gray2-dark" data-feather-bg="gray2-fade-light"></i><span>Settings</span></a>
+    <a asp-action="Index" asp-controller="Home"><i data-feather="home" data-feather-line="1" data-feather-size="21" data-feather-color="blue2-dark" data-feather-bg="blue2-fade-light"></i><span>Home</span></a>
 </div>
 @*<input type="text" asp-for="at"/>
-<input type="text" asp-for="at"/>
-<input type="text" asp-for="at"/>
-<input type="text" asp-for="at"/>*@
+    <input type="text" asp-for="at"/>
+    <input type="text" asp-for="at"/>
+    <input type="text" asp-for="at"/>*@
 <script>
     window.fbAsyncInit = function () {
         // FB JavaScript SDK configuration and setup
@@ -149,6 +146,9 @@
                                         success: function (response, status) {
                                             if (status == "success") {
                                                 /////////////////////After Signup and login show the pages of FB for selection//////////////////////////
+                                                localStorage.setItem("userId", response.userID)
+                                                localStorage.setItem("tenantId", response.tenantID)
+                                                localStorage.setItem("rolename", response.roleName)
                                                 var payload = []
                                                 accountdata.map(element => {
                                                     var obj = {
@@ -166,9 +166,7 @@
                                                 data = data.replace("&", "And");
                                                 window.location.href = '@Url.ActionLink("ShowPageslist", "Account")?data=' + data;
                                                 console.log(response)
-                                                localStorage.setItem("userId", response.userID)
-                                                localStorage.setItem("tenantId", response.tenantID)
-                                                localStorage.setItem("rolename", response.roleName)
+
                                             }
                                         },
                                         error: function (error) {
@@ -184,8 +182,52 @@
                     }
                 }).done(function (res, status) {
                     if (status == "success") {
-                        location.href = '@Url.ActionLink("ShowSellerPanel", "Account")?uid=' + localStorage.getItem("userId") + '&tid=' + localStorage.getItem("tenantId");
-                            document.getElementById('fbLoginBtn').setAttribute("onclick", "fbLogout()");
+                        sessionStorage.setItem('Login', 'yes');
+                        $.ajax({
+                            url: "https://shopalive.p.rapidapi.com/v1/Pages",
+                            type: "get",
+                            contentType: "application/json",
+                            headers: {
+                                "x-rapidapi-key": rapidApiKey,
+                                "B2B-TENANT-ID": res.tenantID,
+                                "B2B-USER-ID": res.userID,
+                                "x-rapidapi-host": rapidApiHost
+                            },
+                            data: JSON.stringify(data),
+                            success: function (res, status) {
+                                if (status == "success") {
+                                    var payload = []
+                                    console.log(res)
+                                    for (var x = 0; x < accountdata.length; x++) {
+                                        for (var y = 0; y < res.length; y++) {
+                                            if (accountdata[x].id == res[y].pageId) {
+                                                var obj = {
+                                                    "AccessToken": accountdata[x].access_token,
+                                                    "Category": res[y].id,
+                                                    "Id": accountdata[x].id,
+                                                    "Name": accountdata[x].name,
+                                                    "tenantId": localStorage.getItem("tenantId"),
+                                                    "userId": localStorage.getItem("userId")
+                                                }
+                                                payload.push(obj)
+                                                console.log(obj)
+                                            }
+
+                                        }
+                                    }
+                                    console.log(payload)
+                                    
+                                    var data = JSON.stringify(payload);
+                                    data = data.replace("&", "And");
+                                    window.location.href = '@Url.ActionLink("ShowSellerPanel", "Account")?data=' + data;
+                                    
+                                }
+                            },
+                            error: function (error) {
+                                console.log(error)
+                            }
+                        })
+                        document.getElementById('fbLoginBtn').setAttribute("onclick", "fbLogout()");
                         document.getElementById('fbLoginValue').innerHTML = 'Logout from Facebook';
                         document.getElementById('status').innerHTML = '<p>Thanks for logging in, ' + data.FirstName + '!</p><br> <p>You logged in a Seller Account and your Seller Code is ' + data.sellercode + ' And Your Seller Domain Is ' + data.SellerSubdomainCode + '</p > ';
                     }

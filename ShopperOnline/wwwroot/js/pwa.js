@@ -11,7 +11,7 @@ $(document).ready(function(){
     
     var pwaVersion = '2.1'; //must be identical to _manifest.json version. If not it will create update window loop
     var pwaCookie = true; // if set to false, the PWA prompt will appear even if the user selects "maybe later"
-    var pwaNoCache = true; // always keep the cache clear to serve the freshest possible content
+    var pwaNoCache = false; // always keep the cache clear to serve the freshest possible content
     
     
     $('[data-pwa-version]').data('pwa-version', pwaVersion);
@@ -115,28 +115,26 @@ $(document).ready(function(){
     
     
     //Update Version in 5 Seconds After New Version Detected
-    function updateButton(){
-        var counter = 3;
-        var interval = setInterval(function() {
-            counter--;
-            console.log(counter);
-            $('.page-update').html('Updating in ... '+ counter + ' seconds');
-            if (counter == 0) {
-                clearInterval(interval);
-                window.location.reload(true)
-            }
-        }, 1000);
-        caches.delete('workbox-runtime').then(function() { 
-          console.log('Content Updated - Cache Removed!'); 
-        });
-        localStorage.clear();
-        sessionStorage.clear()
-        caches.keys().then(cacheNames => {
-          cacheNames.forEach(cacheName => {
-            caches.delete(cacheName);
-          });
-        });
-    };
+    //function updateButton(){
+    //    var counter = 3;
+    //    var interval = setInterval(function() {
+    //        counter--;
+    //        console.log(counter);
+    //        $('.page-update').html('Updating in ... '+ counter + ' seconds');
+    //        if (counter == 0) {
+    //            clearInterval(interval);
+    //            window.location.reload(true)
+    //        }
+    //    }, 1000);
+    //    caches.delete('workbox-runtime').then(function() { 
+    //      console.log('Content Updated - Cache Removed!'); 
+    //    });
+    //    caches.keys().then(cacheNames => {
+    //      cacheNames.forEach(cacheName => {
+    //        caches.delete(cacheName);
+    //      });
+    //    });
+    //};
         
     //Check Version    
     function check_version(){
@@ -239,17 +237,15 @@ $(document).ready(function(){
     window.addEventListener('offline', updateOfflineStatus);
     
  
-    if(pwaNoCache == true){
-        caches.delete('workbox-runtime').then(function() { 
-        });
-        localStorage.clear();
-        sessionStorage.clear()
-        caches.keys().then(cacheNames => {
-          cacheNames.forEach(cacheName => {
-            caches.delete(cacheName);
-          });
-        });
-    }
+    //if(pwaNoCache == true){
+    //    caches.delete('workbox-runtime').then(function() { 
+    //    });
+    //    caches.keys().then(cacheNames => {
+    //      cacheNames.forEach(cacheName => {
+    //        caches.delete(cacheName);
+    //      });
+    //    });
+    //}
     
  
 })

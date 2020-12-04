@@ -11,5 +11,6 @@ namespace ShopperOnline.Models.ViewModel
         public string Tid { get; set; }
         public string PageId { get; set; }
         public string SystemPageId { get; set; }
+        public string AccessToken { get; set; }
     }
 }

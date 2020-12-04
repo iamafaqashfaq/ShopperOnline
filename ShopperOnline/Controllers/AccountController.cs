@@ -55,14 +55,11 @@ namespace ShopperOnline.Controllers
             //return Content(result.ToString());
             return View(json);
         }
-        public IActionResult ShowSellerPanel(string uid, string tid)
+        public IActionResult ShowSellerPanel(string data)
         {
-            var showSellerPanelVM = new ShowSellerPanelVM
-            {
-                Uid = uid,
-                Tid = tid
-            };
-            return View(showSellerPanelVM);
+            var json = JsonConvert.DeserializeObject<PageList[]>(data);
+
+            return View(json);
         }
         //[HttpPost]
         //public IActionResult ShowPageslist([FromBody]List<PageList> model)

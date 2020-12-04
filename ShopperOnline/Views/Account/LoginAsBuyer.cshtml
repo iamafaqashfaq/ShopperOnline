@@ -91,7 +91,7 @@
                     "Username": response.id,
                     "password": "Test@123",
                     "PasswordConfirmation": "Test@123",
-                    "sellercode": "138605378014784"
+                    "sellercode": "103656354925728"
                 }
                 $.ajax({
                     url: "https://shopalive.p.rapidapi.com/v1/Users/Login",
@@ -104,7 +104,7 @@
                     data: JSON.stringify({
                         "username": response.id,
                         "password": "Test@123",
-                        "sellerCode": "138605378014784"
+                        "sellerCode": "103656354925728"
                     }),
                     success: function (response, status) {
                         if (status == "success") {
@@ -159,6 +159,7 @@
                     }
                 }).done(function (response, status) {
                     if (status == "success") {
+                        location.href = '@Url.ActionLink("ShowSellerPanel", "Account")?uid=' + localStorage.getItem("userId") + '&tid=' + localStorage.getItem("tenantId");
                         document.getElementById('fbLoginBtn').setAttribute("onclick", "fbLogout()");
                         document.getElementById('fbLoginValue').innerHTML = 'Logout from Facebook';
                         document.getElementById('status').innerHTML = '<p>Thanks for logging in, ' + data.FirstName + '!</p> <br> <p>You logged in a Buyer Account and your Seller Code is ' + data.sellercode + '</p>';

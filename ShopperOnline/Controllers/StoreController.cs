@@ -11,10 +11,6 @@ namespace ShopperOnline.Controllers
 {
     public class StoreController : Controller
     {
-        public IActionResult Cart()
-        {
-            return View();
-        }
 
         public IActionResult ComponentInput()
         {
@@ -46,14 +42,27 @@ namespace ShopperOnline.Controllers
             };
             return View(showProductVM);
         }
-        public IActionResult ShowProduct(string uid, string tid, string pageId, string systemPageId)
+        public IActionResult Cart(string uid, string tid, string pageId, string systemPageId, string accesstoken)
         {
             var showProductVM = new ShowProductVM
             {
                 Uid = uid,
                 Tid = tid,
                 PageId = pageId,
-                SystemPageId = systemPageId
+                SystemPageId = systemPageId,
+                AccessToken = accesstoken
+            };
+            return View(showProductVM);
+        }
+        public IActionResult ShowProduct(string uid, string tid, string pageId, string systemPageId, string accesstoken)
+        {
+            var showProductVM = new ShowProductVM
+            {
+                Uid = uid,
+                Tid = tid,
+                PageId = pageId,
+                SystemPageId = systemPageId,
+                AccessToken = accesstoken
             };
             return View(showProductVM);
         }
