@@ -51,8 +51,7 @@
                 <div class="card-bg owl-lazy" data-src=@Url.Content("~/images/pictures/14m.jpg")></div>
             </div>
         </div>
-
-        <div class="content mt-0">
+        <div class="content mt-0" id="login">
             <div class="row">
                 <div class="col-6">
                     <a asp-action="LoginAsSeller" asp-controller="Account" class="btn btn-full btn-sm rounded-s text-uppercase font-900 shadow-xl bg-highlight">Login as a seller</a>
@@ -89,7 +88,10 @@
 
 
         <!-- footer and footer card-->
-        <div class="footer" data-menu-load="menu-footer.html"></div>
+        <div id="footer-bar" class="footer-bar-5">
+            <a asp-action="ShowSellerPanel" asp-controller="Account" id="pages"><i data-feather="file" data-feather-line="1" data-feather-size="21" data-feather-color="brown1-dark" data-feather-bg="brown1-fade-light"></i><span>Pages</span></a>
+        </div>
+
     </div>
     <!-- end of page content-->
 
@@ -152,3 +154,14 @@
 
 
 </div>
+@section Scripts{ 
+<script>
+    if (sessionStorage.getItem("Login") == "yes") {
+        var element = document.getElementById('login');
+        element.style.visibility = 'hidden';
+    } else if (sessionStorage.getItem("Login") == undefined) {
+        var element = document.getElementById('pages');
+        element.style.visibility = 'hidden';
+    }
+</script>
+}

@@ -1,0 +1,41 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<div class="header header-demo header-logo-center  position-fixed d-flex justify-content-around  ">
+    <partial name="~/Views/Shared/_Navbar.cshtml" />
+
+</div>
+<div class="card card-style " style="margin-top: 5rem;">
+    <!-- header and footer bar go here-->
+    <div class="page-content">
+        <div class="page-title page-title-small">
+            <h2><a href="#" data-back-button><i class="fa fa-arrow-left"></i></a>Pages</h2>
+            <a href="#" data-menu="menu-main" class="bg-fade-gray1-dark shadow-xl preload-img" data-src="images/avatars/5s.png"></a>
+        </div>
+        <div class="card header-card shape-rounded" data-card-height="150">
+            <div class="card-overlay bg-highlight opacity-95"></div>
+            <div class="card-overlay dark-mode-tint"></div>
+            <div class="card-bg preload-img" data-src="images/pictures/20s.jpg"></div>
+        </div>
+        <div class="card card-style">
+            <div class="content">
+                Select page And See the relevant Page Products List and Add New Product
+            </div>
+        </div>
+        <div class="ml-3 mb-3 mt-3">
+            <h1>Wellcome to buyer panel</h1>
+        </div>
+    </div>
+</div>
+<div id="footer-bar" class="footer-bar-5">
+    <a asp-action="Index" asp-controller="Home" class="active-nav"><i class="fa fa-arrow-left text-primary"></i><span>Back</span></a>
+    <a asp-action="Index" asp-controller="Home" class="active-nav"><i data-feather="home" data-feather-line="1" data-feather-size="21" data-feather-color="blue2-dark" data-feather-bg="blue2-fade-light"></i><span>Home</span></a>
+</div>
+
+@section Scripts{
+    <script>
+
+    </script>
+}

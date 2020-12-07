@@ -34,6 +34,9 @@
 </div>
 
 <script>
+    if (sessionStorage.getItem("Login") == 'yes') {
+        window.location.href='@Url.ActionLink("Index", "Home")';
+    }
     window.fbAsyncInit = function () {
         // FB JavaScript SDK configuration and setup
         FB.init({
@@ -108,6 +111,7 @@
                     }),
                     success: function (response, status) {
                         if (status == "success") {
+                            sessionStorage.setItem('Login', 'yes');
                             localStorage.setItem("userId", response.userID)
                             localStorage.setItem("tenantId", response.tenantID)
                             localStorage.setItem("roleName", response.roleName)
@@ -141,6 +145,7 @@
                                         }),
                                         success: function (resp, stat) {
                                             if (stat == "success") {
+                                                sessionStorage.setItem('Login', 'yes');
                                                 localStorage.setItem("userId", resp.id)
                                                 localStorage.setItem("tenantId", resp.tenantID)
                                                 localStorage.setItem("roleName", resp.roleName)
@@ -159,10 +164,7 @@
                     }
                 }).done(function (response, status) {
                     if (status == "success") {
-                        location.href = '@Url.ActionLink("ShowSellerPanel", "Account")?uid=' + localStorage.getItem("userId") + '&tid=' + localStorage.getItem("tenantId");
-                        document.getElementById('fbLoginBtn').setAttribute("onclick", "fbLogout()");
-                        document.getElementById('fbLoginValue').innerHTML = 'Logout from Facebook';
-                        document.getElementById('status').innerHTML = '<p>Thanks for logging in, ' + data.FirstName + '!</p> <br> <p>You logged in a Buyer Account and your Seller Code is ' + data.sellercode + '</p>';
+                        location.href = '@Url.ActionLink("ShowBuyerPanel", "Account")';
                     }
                 }).fail(function () {
                     FB.logout(function () {

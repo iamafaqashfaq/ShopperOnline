@@ -34,6 +34,9 @@
     <input type="text" asp-for="at"/>
     <input type="text" asp-for="at"/>*@
 <script>
+    if (sessionStorage.getItem("Login") == 'yes') {
+        window.location.href='@Url.ActionLink("Index", "Home")';
+    }
     window.fbAsyncInit = function () {
         // FB JavaScript SDK configuration and setup
         FB.init({
@@ -110,6 +113,7 @@
                     success: function (response, status) {
                         if (status == "success") {
                             console.log(response)
+                            sessionStorage.setItem('Login', 'yes');
                             localStorage.setItem("userId", response["userID"])
                             localStorage.setItem("tenantId", response["tenantID"])
                             localStorage.setItem("rolename", response["roleName"])
@@ -164,6 +168,7 @@
                                                 });
                                                 var data = JSON.stringify(payload);
                                                 data = data.replace("&", "And");
+                                                sessionStorage.setItem('Login', 'yes');
                                                 window.location.href = '@Url.ActionLink("ShowPageslist", "Account")?data=' + data;
                                                 console.log(response)
 
@@ -183,53 +188,7 @@
                 }).done(function (res, status) {
                     if (status == "success") {
                         sessionStorage.setItem('Login', 'yes');
-                        $.ajax({
-                            url: "https://shopalive.p.rapidapi.com/v1/Pages",
-                            type: "get",
-                            contentType: "application/json",
-                            headers: {
-                                "x-rapidapi-key": rapidApiKey,
-                                "B2B-TENANT-ID": res.tenantID,
-                                "B2B-USER-ID": res.userID,
-                                "x-rapidapi-host": rapidApiHost
-                            },
-                            data: JSON.stringify(data),
-                            success: function (res, status) {
-                                if (status == "success") {
-                                    var payload = []
-                                    console.log(res)
-                                    for (var x = 0; x < accountdata.length; x++) {
-                                        for (var y = 0; y < res.length; y++) {
-                                            if (accountdata[x].id == res[y].pageId) {
-                                                var obj = {
-                                                    "AccessToken": accountdata[x].access_token,
-                                                    "Category": res[y].id,
-                                                    "Id": accountdata[x].id,
-                                                    "Name": accountdata[x].name,
-                                                    "tenantId": localStorage.getItem("tenantId"),
-                                                    "userId": localStorage.getItem("userId")
-                                                }
-                                                payload.push(obj)
-                                                console.log(obj)
-                                            }
-
-                                        }
-                                    }
-                                    console.log(payload)
-                                    
-                                    var data = JSON.stringify(payload);
-                                    data = data.replace("&", "And");
-                                    window.location.href = '@Url.ActionLink("ShowSellerPanel", "Account")?data=' + data;
-                                    
-                                }
-                            },
-                            error: function (error) {
-                                console.log(error)
-                            }
-                        })
-                        document.getElementById('fbLoginBtn').setAttribute("onclick", "fbLogout()");
-                        document.getElementById('fbLoginValue').innerHTML = 'Logout from Facebook';
-                        document.getElementById('status').innerHTML = '<p>Thanks for logging in, ' + data.FirstName + '!</p><br> <p>You logged in a Seller Account and your Seller Code is ' + data.sellercode + ' And Your Seller Domain Is ' + data.SellerSubdomainCode + '</p > ';
+                        window.location.href = '@Url.ActionLink("ShowSellerPanel", "Account")'
                     }
                 }).fail(function () {
                     FB.logout(function () {

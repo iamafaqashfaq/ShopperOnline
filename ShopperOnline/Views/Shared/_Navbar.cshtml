@@ -7,4 +7,17 @@
 <a asp-action="Index" asp-controller="Home" class="header-logo">Enabled<span class="color-highlight"> Mobile</span></a>
 
 <a href="/Store/AddProduct" class="header-icon header-icon-5"><i class="fas fa-bars"></i></a>
-<a asp-action="Login" asp-controller="Account" class="header-icon header-icon-6"><i class="fas fa-user"></i></a>
+<a asp-action="Index" asp-controller="Home" id="logout" onclick="logout();" class="header-icon header-icon-6"><i class="fas fa-sign-out-alt"></i></a>
+<script>
+    if (sessionStorage.getItem("Login") == "yes") {
+        var element = document.getElementById('logout');
+        element.style.visibility = 'visible';
+    } else {
+        var element = document.getElementById('logout');
+        element.style.visibility = 'hidden';
+    }
+    function logout() {
+        sessionStorage.clear();
+        localStorage.clear();
+    }
+</script>
