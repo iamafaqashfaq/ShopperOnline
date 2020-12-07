@@ -6,10 +6,10 @@ workbox.setConfig({
 });
 
 //Caching Everything Inside the Folder of our Item
-workbox.routing.registerRoute(
-    new RegExp('.*'),
-    new workbox.strategies.NetworkFirst()
-);
+//workbox.routing.registerRoute(
+//    new RegExp('.*'),
+//    new workbox.strategies.NetworkFirst()
+//);
 
 //console.log('Azures Service Worker Running');
 

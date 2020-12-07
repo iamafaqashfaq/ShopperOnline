@@ -55,6 +55,14 @@ namespace ShopperOnline.Controllers
             //return Content(result.ToString());
             return View(json);
         }
+        public IActionResult ShowSellerPanel()
+        {
+            return View();
+        }
+        public IActionResult ShowBuyerPanel()
+        {
+            return View();
+        }
         //[HttpPost]
         //public IActionResult ShowPageslist([FromBody]List<PageList> model)
         //{

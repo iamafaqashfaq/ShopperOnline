@@ -13,13 +13,24 @@
 <div class="card card-style " style="margin-top: 5rem;">
     <div class="content mt-2 mb-0">
         <h3 class="text-center pt-3">Select Page</h3>
+        <div class="divider"></div>
         @foreach (var item in Model)
         {
-            <p>@item.Name</p>
-        }
-        <div class="divider"></div>
+            <div class="d-flex pb-2">
+                <div class="mr-auto">
+                    <img src="~/images/pictures/2s.jpg" class="rounded-m shadow-xl" width="110">
 
+                </div>
+                <div class="ml-auto w-100 pl-3">
+                    <h1 class="font-30 font-600 opacity-80 pb-2 " style="color:#000000;">@item.Name</h1>
+                    <div class="clearfix"></div>
+                    <h5 class="font-14 font-600 opacity-80 pb-2">@item.Category</h5>
+                    <button onclick="selectPage('@item.Name', '@item.Id', '5f9f8819305716dd68ae32e6', '@item.tenantId', '@item.userId');" class="btn btn-success">select</button>
+                </div>
+            </div>
+        }
         <div class="divider mt-4 mb-3"></div>
+
     </div>
 
 </div>
@@ -31,3 +42,33 @@
     <a href="index-pages.html"><i data-feather="file" data-feather-line="1" data-feather-size="21" data-feather-color="brown1-dark" data-feather-bg="brown1-fade-light"></i><span>Pages</span></a>
     <a href="index-settings.html"><i data-feather="settings" data-feather-line="1" data-feather-size="21" data-feather-color="gray2-dark" data-feather-bg="gray2-fade-light"></i><span>Settings</span></a>
 </div>
+<script>
+    function selectPage(name,pageId,PlanId,tenantId,UserId) {
+        var data = {
+            "name": name,
+            "pageId": pageId,
+            "planId": PlanId
+        }
+
+        $.ajax({
+            url: "https://shopalive.p.rapidapi.com/v1/Pages",
+            type: "post",
+            contentType: "application/json",
+            headers: {
+                "x-rapidapi-key": rapidApiKey,
+                "B2B-TENANT-ID": tenantId,
+                "B2B-USER-ID": UserId,
+                "x-rapidapi-host": rapidApiHost
+            },
+            data: JSON.stringify(data),
+            success: function (res, status) {
+                if (status == "success") {
+                    console.log(res)
+                }
+            },
+            error: function (error) {
+                console.log(error)
+            }
+        })
+    }
+</script>
