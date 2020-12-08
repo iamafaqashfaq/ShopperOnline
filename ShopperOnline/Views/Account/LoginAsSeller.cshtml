@@ -116,7 +116,7 @@
                             sessionStorage.setItem('Login', 'yes');
                             localStorage.setItem("userId", response["userID"])
                             localStorage.setItem("tenantId", response["tenantID"])
-                            localStorage.setItem("rolename", response["roleName"])
+                            localStorage.setItem("roleName", response["roleName"])
                         }
                     },
                     error: function (error) {
@@ -152,7 +152,7 @@
                                                 /////////////////////After Signup and login show the pages of FB for selection//////////////////////////
                                                 localStorage.setItem("userId", response.userID)
                                                 localStorage.setItem("tenantId", response.tenantID)
-                                                localStorage.setItem("rolename", response.roleName)
+                                                localStorage.setItem("roleName", response.roleName)
                                                 var payload = []
                                                 accountdata.map(element => {
                                                     var obj = {

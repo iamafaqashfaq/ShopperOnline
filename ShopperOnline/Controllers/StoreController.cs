@@ -16,6 +16,10 @@ namespace ShopperOnline.Controllers
         {
             return View();
         }
+        public IActionResult Storecart()
+        {
+            return View();
+        }
 
         public IActionResult PaymentDetail()
         {
