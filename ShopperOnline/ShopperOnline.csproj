@@ -6,6 +6,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Views\Store\storecart.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Views\Store\Storecart.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />

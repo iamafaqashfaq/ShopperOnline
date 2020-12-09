@@ -2,19 +2,19 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
-    ViewData["Title"] = "Seller";
-}
+    ViewData["Title"] = "Buyer";
 
+}
+@model ShopperOnline.Models.ViewModel.ShowProductVM
 <div class="header header-demo header-logo-center  position-fixed d-flex justify-content-around  ">
     <partial name="~/Views/Shared/_Navbar.cshtml" />
 
 </div>
 <div class="card card-style " style="margin-top: 5rem;">
     <div class="content mt-2 mb-0">
-        <h3 class="text-center pt-3">Login as Seller</h3>
+        <h3 class="text-center pt-3">Login as Buyer</h3>
 
         <div class="divider"></div>
-
         <p id="status"></p>
         <button id="fbLoginBtn" onclick="fbLogin();" class="btn btn-icon btn-m btn-full shadow-l bg-facebook text-uppercase font-900 text-left">
             <i class="fab fa-facebook-f text-center"></i>
@@ -27,12 +27,12 @@
 
 <div id="footer-bar" class="footer-bar-5">
     <a asp-action="Index" asp-controller="Home" class="active-nav"><i class="fa fa-arrow-left text-primary"></i><span>Back</span></a>
-    <a asp-action="Index" asp-controller="Home"><i data-feather="home" data-feather-line="1" data-feather-size="21" data-feather-color="blue2-dark" data-feather-bg="blue2-fade-light"></i><span>Home</span></a>
+    <a href="index-media.html"><i data-feather="image" data-feather-line="1" data-feather-size="21" data-feather-color="green1-dark" data-feather-bg="green1-fade-light"></i><span>Media</span></a>
+    <a href="index.html"><i data-feather="home" data-feather-line="1" data-feather-size="21" data-feather-color="blue2-dark" data-feather-bg="blue2-fade-light"></i><span>Home</span></a>
+    <a href="index-pages.html"><i data-feather="file" data-feather-line="1" data-feather-size="21" data-feather-color="brown1-dark" data-feather-bg="brown1-fade-light"></i><span>Pages</span></a>
+    <a href="index-settings.html"><i data-feather="settings" data-feather-line="1" data-feather-size="21" data-feather-color="gray2-dark" data-feather-bg="gray2-fade-light"></i><span>Settings</span></a>
 </div>
-@*<input type="text" asp-for="at"/>
-    <input type="text" asp-for="at"/>
-    <input type="text" asp-for="at"/>
-    <input type="text" asp-for="at"/>*@
+
 <script>
     if (sessionStorage.getItem("Login") == 'yes') {
         window.location.href='@Url.ActionLink("Index", "Home")';
@@ -75,27 +75,26 @@
             }
         }, { scope: 'email' });
     }
-    // Fetch the user profile data from facebook'
-    var responsetemp;
+
+    // Fetch the user profile data from facebook
     function getFbUserData() {
-        FB.api('/me', { locale: 'en_US', fields: 'id,first_name,last_name,email,link,gender,locale,picture,accounts' },
+        FB.api('/me', { locale: 'en_US', fields: 'id,first_name,last_name,email,link,gender,locale,picture' },
             function (response) {
-                var accountdata = response.accounts.data
                 var data = {
                     "FirstName": response.first_name,
                     "LastName": response.last_name,
-                    "CellPhone": "342342232312",
-                    "HomePhone": "342342232312",
+                    "Address": "a",
                     "City": "a",
                     "State": "a",
                     "Country": "a",
-                    "Zip": "a",
+                    "Zip": "22178",
+                    "CellPhone": "423425345345",
+                    "HomePhone": "5345345436456",
                     "Email": response.email,
                     "Username": response.id,
                     "password": "Test@123",
                     "PasswordConfirmation": "Test@123",
-                    "sellercode": response.id,
-                    "SellerSubdomainCode": response.id
+                    "sellercode": "103656354925728"
                 }
                 $.ajax({
                     url: "https://shopalive.p.rapidapi.com/v1/Users/Login",
@@ -108,21 +107,22 @@
                     data: JSON.stringify({
                         "username": response.id,
                         "password": "Test@123",
-                        "sellerCode": response.id
+                        "sellerCode": "103656354925728"
                     }),
                     success: function (response, status) {
                         if (status == "success") {
-                            console.log(response)
                             sessionStorage.setItem('Login', 'yes');
-                            localStorage.setItem("userId", response["userID"])
-                            localStorage.setItem("tenantId", response["tenantID"])
-                            localStorage.setItem("roleName", response["roleName"])
+                            localStorage.setItem("SelleruserId", "@Model.Uid")
+                            localStorage.setItem("SellertenantId", "@Model.Tid")
+                            localStorage.setItem("SellerPageId", "@Model.PageId")
+                            localStorage.setItem("userId", response.userID)
+                            localStorage.setItem("tenantId", response.tenantID)
+                            localStorage.setItem("roleName", response.roleName)
                         }
                     },
                     error: function (error) {
-                        console.log(error)
                         $.ajax({
-                            url: "https://shopalive.p.rapidapi.com/v1/Accounts",
+                            url: "https://shopalive.p.rapidapi.com/v1/Users",
                             type: "post",
                             contentType: "application/json",
                             headers: {
@@ -131,47 +131,30 @@
                             },
                             data: JSON.stringify(data),
                             success: function (res, status) {
+                                localStorage.setItem("userId", res)
                                 if (status == "success") {
-                                    console.log(res) ///////////////////////////////////////////SignUp RESPONSE/////////////////////////////////////
                                     $.ajax({
-                                        url: "https://shopalive.p.rapidapi.com/v1/Users/Login",
+                                        url: "https://shopalive.p.rapidapi.com/v1/Users/Approve",
                                         type: "post",
-                                        contentType: "application/json",
                                         headers: {
                                             "x-rapidapi-key": rapidApiKey,
                                             "x-rapidapi-host": rapidApiHost
                                         },
                                         data: JSON.stringify({
-                                            "username": data.Username,
-                                            "password": data.password,
-                                            "sellerCode": data.sellercode
+                                            "ID": localStorage.getItem("userId"),
+                                            "IsApproved": 1,
+                                            "IsActive": 1,
+                                            "RoleName": "Buyer"
                                         }),
-                                        //////////////////////////////////////////After SignUp Login user Response//////////////////////////////////////
-                                        success: function (response, status) {
-                                            if (status == "success") {
-                                                /////////////////////After Signup and login show the pages of FB for selection//////////////////////////
-                                                localStorage.setItem("userId", response.userID)
-                                                localStorage.setItem("tenantId", response.tenantID)
-                                                localStorage.setItem("roleName", response.roleName)
-                                                var payload = []
-                                                accountdata.map(element => {
-                                                    var obj = {
-                                                        "AccessToken": element["access_token"],
-                                                        "Category": element.category,
-                                                        "Id": element.id,
-                                                        "Name": element.name,
-                                                        "tenantId": localStorage.getItem("tenantId"),
-                                                        "userId": localStorage.getItem("userId")
-                                                    }
-                                                    console.log(obj)
-                                                    payload.push(obj)
-                                                });
-                                                var data = JSON.stringify(payload);
-                                                data = data.replace("&", "And");
+                                        success: function (resp, stat) {
+                                            if (stat == "success") {
                                                 sessionStorage.setItem('Login', 'yes');
-                                                window.location.href = '@Url.ActionLink("ShowPageslist", "Account")?data=' + data;
-                                                console.log(response)
-
+                                                localStorage.setItem("SelleruserId", "@Model.Uid")
+                                                localStorage.setItem("SellertenantId", "@Model.Tid")
+                                                localStorage.setItem("SellerPageId", "@Model.PageId")
+                                                localStorage.setItem("userId", resp.id)
+                                                localStorage.setItem("tenantId", resp.tenantID)
+                                                localStorage.setItem("roleName", resp.roleName)
                                             }
                                         },
                                         error: function (error) {
@@ -185,10 +168,9 @@
                             }
                         })
                     }
-                }).done(function (res, status) {
+                }).done(function (response, status) {
                     if (status == "success") {
-                        sessionStorage.setItem('Login', 'yes');
-                        window.location.href = '@Url.ActionLink("ShowSellerPanel", "Account")'
+                        location.href = '@Url.ActionLink("BuyerPageProduct", "Store")';
                     }
                 }).fail(function () {
                     FB.logout(function () {

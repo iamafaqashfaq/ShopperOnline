@@ -1,0 +1,331 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "StoreCart";
+}
+
+@model ShopperOnline.Models.ViewModel.ShowProductVM
+<div class="header header-demo header-logo-center  position-fixed d-flex justify-content-around  ">
+    <partial name="~/Views/Shared/_Navbar.cshtml" />
+
+</div>
+<div class="card card-style " style="margin-top: 5rem;">
+
+    <!-- header and footer bar go here-->
+    <div class="header header-fixed header-auto-show header-logo-app">
+        <a href="#" data-back-button class="header-title header-subtitle">Back to Pages</a>
+        <a href="#" data-back-button class="header-icon header-icon-1"><i class="fas fa-arrow-left"></i></a>
+        <a href="#" data-toggle-theme class="header-icon header-icon-2 show-on-theme-dark"><i class="fas fa-sun"></i></a>
+        <a href="#" data-toggle-theme class="header-icon header-icon-2 show-on-theme-light"><i class="fas fa-moon"></i></a>
+        <a href="#" data-menu="menu-highlights" class="header-icon header-icon-3"><i class="fas fa-brush"></i></a>
+        <a href="#" data-menu="menu-main" class="header-icon header-icon-4"><i class="fas fa-bars"></i></a>
+    </div>
+
+    <div class="page-content">
+
+        <div class="page-title page-title-small">
+            <h2><a href="#" data-back-button><i class="fa fa-arrow-left"></i></a>Cart</h2>
+            <a href="#" data-menu="menu-main" class="bg-fade-gray1-dark shadow-xl preload-img" data-src="images/avatars/5s.png"></a>
+        </div>
+        <div class="card header-card shape-rounded" data-card-height="150">
+            <div class="card-overlay bg-highlight opacity-95"></div>
+            <div class="card-overlay dark-mode-tint"></div>
+            <div class="card-bg preload-img" data-src="images/pictures/20s.jpg"></div>
+        </div>
+        <div id="product"></div>
+
+        <div class="divider divider-margins"></div>
+        <div id="checkout"></div>
+
+        <!-- footer and footer card-->
+        <div class="footer" data-menu-load="menu-footer.html"></div>
+    </div>
+    <!-- end of page content-->
+
+
+</div>
+<div id="footer-bar" class="footer-bar-5">
+    <a asp-action="index" asp-controller="Home" class="active-nav"><i class="fa fa-arrow-left text-primary"></i><span>Back</span></a>
+    <a asp-action="index" asp-controller="Home"><i data-feather="home" data-feather-line="1" data-feather-size="21" data-feather-color="blue2-dark" data-feather-bg="blue2-fade-light"></i><span>Home</span></a>
+</div>
+@section Scripts{
+    <script>
+        var tid = localStorage.getItem("tenantId").toString();
+        var uid = localStorage.getItem("userId").toString();
+        var total=0;
+        var DraftItem = [];
+        ///////////////////AJAX to get draft item///////////
+            $.ajax({
+                /**/
+                url: 'https://shopalive.p.rapidapi.com/v1/Orders',
+                /**/
+                type: "get",
+                contentType: "application/json",
+                headers: {
+                    "x-rapidapi-key": rapidApiKey,
+                    "B2B-TENANT-ID": tid,
+                    "B2B-USER-ID": uid,
+                    "x-rapidapi-host": rapidApiHost
+                },
+                success: function (res, status) {
+                    console.log(res);
+                    if (status == "success") {
+                        for (var i = 0; i < res.length; i++) {
+                            if (res[i].orderStatus == "Draft") {
+                                total = total + parseFloat(res[i].netTotal)
+                                        $("#product").append(`
+                                            <div class="card card-style">
+                                                <div class="content">
+                                                    <div class="d-flex pb-2">
+                                                        <div class="pr-3">
+                                                            <h1 class="font-24 font-700 " id="itemName${i}">${res[i].items[0].itemName}</h1>
+                                                        </div>
+                                                    </div>
+                                                    <input type="text" id="draftid${i}" value="${res[i].id}" hidden>
+                                                    <input type="text" id="itemSKU${i}" value="${res[i].items[0].itemSKU}" hidden>
+                                                    <input type="text" id="description${i}" value="${res[i].items[0].description}" hidden>
+                                                    <div class="row mb-0 mt-4">
+                                                        <div class="col-8">
+                                                            <div class="input-style input-style-2">
+                                                            <h1 class="font-24 font-700 " id="salePrice${i}">${res[i].items[0].salePrice}</h1>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <div class="float-right mr-3 mb-3 ">
+                                                                <div class="input-style input-style-1 mt-1">
+                                                                    <div class="quantity buttons_added">
+                                                                        <input type="button" value="-" class="minus" onclick="minusqty(${i});"><input type="number" step="1" min="1" max="" name="quantity" value="${res[i].items[0].qty}" title="Qty" class="input-text qty text" size="4" pattern="" inputmode="" id="qty${i}"><input type="button" value="+" class="plus" onclick="plusqty(${i});">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>`
+                                        );
+                            }
+                        }
+                        $("#checkout").append(`<div class="card mt-4 preload-img" data-src="images/pictures/20s.jpg">
+                                <div class="card-body py-4">
+                                    <h2 class="color-white text-center">Cart Sumary</h2>
+                                    <p class="color-white boxed-text-l">
+                                        Taxes and Shipping will be adde din the Checkout Page
+                                    </p>
+                                    <div class="card card-style mx-0">
+                                        <div class="content">
+                                            <div class="divider mt-3"></div>
+
+                                            <h4>Cart Sumary</h4>
+                                            <p>
+                                                Total cart value with shipping taxes and VAT included.
+                                            </p>
+                                            <div class="row mb-0">
+                                                <div class="col-6 text-left"><h6 class="font-600">Total</h6></div>
+                                                <div class="col-6 text-right"><h6 class="font-600" id="total">${total}</h6></div>
+                                                <div class="col-6 text-left"><h6 class="font-600">Taxes</h6></div>
+                                                <div class="col-6 text-right"><h6 class="font-600">$0<sup>.00</sup></h6></div>
+                                                <div class="col-6 text-left"><h6 class="font-600">Shipping</h6></div>
+                                                <div class="col-6 text-right"><h6 class="font-600 color-green1-dark">0</h6></div>
+                                                <div class="col-12"><div class="divider mt-3"></div></div>
+                                                <div class="col-6 text-left"><h4>Grand Total</h4></div>
+                                                <div class="col-6 text-right"><h4 id="total1">${total}</h4></div>
+                                            </div>
+
+                                            <div class="divider mt-4"></div>
+
+                                            <a href="#" class="btn btn-full btn-sm rounded-sm bg-highlight font-800 text-uppercase" onclick="checkout();">Proceed to Checkout</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-overlay bg-highlight opacity-95"></div>
+                                <div class="card-overlay dark-mode-tint"></div>
+                            </div>`
+                        );
+                    }
+                },
+                error: function (error) {
+                    console.log(error)
+                }
+            });
+        /////////////////checkout proceed function///////////////
+        function checkout() {
+            location.href = '@Url.ActionLink("Checkout", "Store")';
+        }
+        /////////////////////Draft Update increase QTY///////////
+        function plusqty(id) {
+            var salePrice = document.getElementById(`salePrice${id}`).innerHTML;
+            var draftid = document.getElementById(`draftid${id}`).value;
+            var name = document.getElementById(`itemName${id}`).innerHTML;
+            var description = document.getElementById(`description${id}`).value;
+            var qty = document.getElementById(`qty${id}`).value;
+            qty = parseInt(qty) + 1;
+            salePrice = parseInt(salePrice)
+            var sku = document.getElementById(`itemSKU${id}`).value;
+            var total = document.getElementById("total").innerHTML;
+            total = parseInt(total) + salePrice;
+            document.getElementById("total").innerHTML = total;
+            var grandtotal = salePrice * qty;
+            document.getElementById("total1").innerHTML = total;
+            var data1 = JSON.stringify({
+                "id": draftid,
+                "items": [
+                    {
+                        "itemSKU": sku,
+                        "itemName": name,
+                        "description": description,
+                        "salePrice": salePrice,
+                        "adjustedPrice": salePrice,
+                        "adjustmentType": "",
+                        "qty": qty,
+                        "tax": 0,
+                        "subtotal": salePrice
+                    }
+                ],
+                "grandTotal": grandtotal,
+                "tax": 0,
+                "discount": 0,
+                "delivery": 0,
+                "netTotal": grandtotal
+            });
+            $.ajax({
+                /**/
+                url: 'https://shopalive.p.rapidapi.com/v1/Orders/InDraft',
+                /**/
+                type: "put",
+                data: data1,
+                contentType: "application/json",
+                headers: {
+                    "x-rapidapi-key": rapidApiKey,
+                    "B2B-TENANT-ID": tid,
+                    "B2B-USER-ID": uid,
+                    "x-rapidapi-host": rapidApiHost
+                },
+                success: function (response, status) {
+                    if (status == "success") {
+                        console.log(response);
+                    }
+                },
+                error: function (error) {
+                    console.log(error)
+                }
+            });
+        }
+        /////////////////////Draft Update decrease QTY///////////
+        function minusqty(id) {
+            var salePrice = document.getElementById(`salePrice${id}`).innerHTML;
+            var draftid = document.getElementById(`draftid${id}`).value;
+            var name = document.getElementById(`itemName${id}`).innerHTML;
+            var description = document.getElementById(`description${id}`).value;
+            var qty = document.getElementById(`qty${id}`).value;
+            qty = parseInt(qty) - 1;
+            salePrice = parseInt(salePrice)
+            var sku = document.getElementById(`itemSKU${id}`).value;
+            var total = document.getElementById("total").innerHTML;
+            total = parseInt(total) - salePrice;
+            document.getElementById("total").innerHTML = total;
+            var grandtotal = salePrice * qty;
+            var data1 = JSON.stringify({
+                "id": draftid,
+                "items": [
+                    {
+                        "itemSKU": sku,
+                        "itemName": name,
+                        "description": description,
+                        "salePrice": salePrice,
+                        "adjustedPrice": salePrice,
+                        "adjustmentType": "",
+                        "qty": qty,
+                        "tax": 0,
+                        "subtotal": salePrice
+                    }
+                ],
+                "grandTotal": grandtotal,
+                "tax": 0,
+                "discount": 0,
+                "delivery": 0,
+                "netTotal": grandtotal
+            });
+            $.ajax({
+                /**/
+                url: 'https://shopalive.p.rapidapi.com/v1/Orders/InDraft',
+                /**/
+                type: "put",
+                data: data1,
+                contentType: "application/json",
+                headers: {
+                    "x-rapidapi-key": rapidApiKey,
+                    "B2B-TENANT-ID": tid,
+                    "B2B-USER-ID": uid,
+                    "x-rapidapi-host": rapidApiHost
+                },
+                success: function (response, status) {
+                    if (status == "success") {
+                        console.log(response);
+                    }
+                },
+                error: function (error) {
+                    console.log(error)
+                }
+            });
+        }
+        //////////////function for add cart product/////////////
+        //function addToCart(id) {
+        //    var regularPrice = document.getElementById(`RP${id}`).innerHTML;
+        //    var salePrice = document.getElementById(`SP${id}`).innerHTML;
+        //    var name = document.getElementById(`name${id}`).innerHTML;
+        //    var description = document.getElementById(`D${id}`).innerHTML;
+        //    var qty = document.getElementById(`QTY${id}`).value;
+        //    var plu = document.getElementById(`plu${id}`).innerHTML;
+        //    var sku = document.getElementById(`sku${id}`).innerHTML;
+        //    var barcodeNumber = document.getElementById(`BN${id}`).innerHTML;
+        //    var grandtotal = parseFloat(salePrice) * parseFloat(qty);
+        //    $.ajax({
+        //        /**/
+        //        url: 'https://shopalive.p.rapidapi.com/v1/Orders',
+        //        /**/
+        //        type: "post",
+        //        data: JSON.stringify({
+        //            "customerID": uid,
+        //            "OrderStatus": "Draft",
+        //            "items": [
+        //                {
+        //                    "itemSKU": sku,
+        //                    "itemName": name,
+        //                    "description": description,
+        //                    "salePrice": salePrice,
+        //                    "adjustedPrice": 0,
+        //                    "adjustmentType": "",
+        //                    "qty": qty,
+        //                    "tax": 0,
+        //                    "subtotal": 100
+        //                }
+        //            ],
+        //            "grandTotal": grandtotal,
+        //            "tax": 0,
+        //            "discount": 0,
+        //            "delivery": 0,
+        //            "netTotal": grandtotal
+        //        }),
+        //        contentType: "application/json",
+        //        headers: {
+        //            "x-rapidapi-key": rapidApiKey,
+        //            "B2B-TENANT-ID": tid,
+        //            "B2B-USER-ID": uid,
+        //            "x-rapidapi-host": rapidApiHost
+        //        },
+        //        success: function (response, status) {
+        //            if (status == "success") {
+        //                alert("Your Product add to cart")
+        //            }
+        //        },
+        //        error: function (error) {
+        //            console.log(error)
+        //        }
+        //    });
+        //}
+
+
+    </script>
+}

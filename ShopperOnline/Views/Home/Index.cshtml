@@ -90,6 +90,7 @@
         <!-- footer and footer card-->
         <div id="footer-bar" class="footer-bar-5">
             <a asp-action="ShowSellerPanel" asp-controller="Account" id="pages"><i data-feather="file" data-feather-line="1" data-feather-size="21" data-feather-color="brown1-dark" data-feather-bg="brown1-fade-light"></i><span>Pages</span></a>
+            <a asp-action="ShowBuyerPanel" asp-controller="Account" id="products"><i data-feather="file" data-feather-line="1" data-feather-size="21" data-feather-color="brown1-dark" data-feather-bg="brown1-fade-light"></i><span>Seller Products</span></a>
         </div>
 
     </div>
@@ -156,11 +157,20 @@
 </div>
 @section Scripts{ 
 <script>
-    if (sessionStorage.getItem("Login") == "yes") {
+    if (sessionStorage.getItem("Login") == "yes" && localStorage.getItem("roleName") == "Buyer") {
         var element = document.getElementById('login');
         element.style.visibility = 'hidden';
-    } else if (sessionStorage.getItem("Login") == undefined) {
         var element = document.getElementById('pages');
+        element.style.visibility = 'hidden';
+    } else if (sessionStorage.getItem("Login") == "yes" && localStorage.getItem("roleName") == "SellerAdmin") {
+        var element = document.getElementById('login');
+        element.style.visibility = 'hidden';
+        var element = document.getElementById('products');
+        element.style.visibility = 'hidden';
+    } else if (sessionStorage.getItem("Login") == null) {
+        var element = document.getElementById('pages');
+        element.style.visibility = 'hidden';
+        var element = document.getElementById('products');
         element.style.visibility = 'hidden';
     }
 </script>

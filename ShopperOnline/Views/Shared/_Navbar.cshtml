@@ -7,17 +7,46 @@
 <a asp-action="Index" asp-controller="Home" class="header-logo">Enabled<span class="color-highlight"> Mobile</span></a>
 
 <a href="/Store/AddProduct" class="header-icon header-icon-5"><i class="fas fa-bars"></i></a>
-<a asp-action="Index" asp-controller="Home" id="logout" onclick="logout();" class="header-icon header-icon-6"><i class="fas fa-sign-out-alt"></i></a>
+<a asp-action="Index" asp-controller="Home" id="logout" onclick="fbLogout();" class="header-icon header-icon-6"><i class="fas fa-sign-out-alt"></i></a>
 <script>
+    window.fbAsyncInit = function () {
+        // FB JavaScript SDK configuration and setup
+        FB.init({
+            appId: fbAppId, // FB App ID
+            cookie: true,  // enable cookies to allow the server to access the session
+            xfbml: true,  // parse social plugins on this page
+            version: 'v3.2' // use graph api version 2.8
+        });
+
+        //// Check whether the user already logged in
+        //FB.getLoginStatus(function (response) {
+        //    if (response.status === 'connected') {
+        //        //display user data
+        //        getFbUserData();
+        //    }
+        //});
+    };
+
+    // Load the JavaScript SDK asynchronously
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+    // Logout from facebook
+    function fbLogout() {
+        localStorage.clear();
+        sessionStorage.clear();
+        FB.logout(function () {
+        });
+    }
     if (sessionStorage.getItem("Login") == "yes") {
         var element = document.getElementById('logout');
         element.style.visibility = 'visible';
     } else {
         var element = document.getElementById('logout');
         element.style.visibility = 'hidden';
-    }
-    function logout() {
-        sessionStorage.clear();
-        localStorage.clear();
     }
 </script>
