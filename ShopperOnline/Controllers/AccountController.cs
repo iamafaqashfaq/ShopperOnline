@@ -23,6 +23,16 @@ namespace ShopperOnline.Controllers
         {
             return View();
         }
+        public IActionResult LoginBuyerlink(string uid, string tid, string pageId)
+        {
+            var showProductVM = new ShowProductVM
+            {
+                Uid = uid,
+                Tid = tid,
+                PageId = pageId
+            };
+            return View(showProductVM);
+        }
 
         public IActionResult SignupAsBuyer()
         {

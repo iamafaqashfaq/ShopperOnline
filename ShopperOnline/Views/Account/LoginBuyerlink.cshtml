@@ -1,0 +1,195 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Buyer";
+
+}
+@model ShopperOnline.Models.ViewModel.ShowProductVM
+<div class="header header-demo header-logo-center  position-fixed d-flex justify-content-around  ">
+    <partial name="~/Views/Shared/_Navbar.cshtml" />
+
+</div>
+<div class="card card-style " style="margin-top: 5rem;">
+    <div class="content mt-2 mb-0">
+        <h3 class="text-center pt-3">Login as Buyer</h3>
+
+        <div class="divider"></div>
+        <p id="status"></p>
+        <button id="fbLoginBtn" onclick="fbLogin();" class="btn btn-icon btn-m btn-full shadow-l bg-facebook text-uppercase font-900 text-left">
+            <i class="fab fa-facebook-f text-center"></i>
+            <span id="fbLoginValue">Facebook</span>
+        </button>
+        <div class="divider mt-4 mb-3"></div>
+    </div>
+
+</div>
+
+<div id="footer-bar" class="footer-bar-5">
+    <a asp-action="Index" asp-controller="Home" class="active-nav"><i class="fa fa-arrow-left text-primary"></i><span>Back</span></a>
+    <a href="index-media.html"><i data-feather="image" data-feather-line="1" data-feather-size="21" data-feather-color="green1-dark" data-feather-bg="green1-fade-light"></i><span>Media</span></a>
+    <a href="index.html"><i data-feather="home" data-feather-line="1" data-feather-size="21" data-feather-color="blue2-dark" data-feather-bg="blue2-fade-light"></i><span>Home</span></a>
+    <a href="index-pages.html"><i data-feather="file" data-feather-line="1" data-feather-size="21" data-feather-color="brown1-dark" data-feather-bg="brown1-fade-light"></i><span>Pages</span></a>
+    <a href="index-settings.html"><i data-feather="settings" data-feather-line="1" data-feather-size="21" data-feather-color="gray2-dark" data-feather-bg="gray2-fade-light"></i><span>Settings</span></a>
+</div>
+
+<script>
+    if (sessionStorage.getItem("Login") == 'yes') {
+        window.location.href='@Url.ActionLink("Index", "Home")';
+    }
+    window.fbAsyncInit = function () {
+        // FB JavaScript SDK configuration and setup
+        FB.init({
+            appId: fbAppId, // FB App ID
+            cookie: true,  // enable cookies to allow the server to access the session
+            xfbml: true,  // parse social plugins on this page
+            version: 'v3.2' // use graph api version 2.8
+        });
+
+        // Check whether the user already logged in
+        FB.getLoginStatus(function (response) {
+            if (response.status === 'connected') {
+                //display user data
+                getFbUserData();
+            }
+        });
+    };
+
+    // Load the JavaScript SDK asynchronously
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+    // Facebook login with JavaScript SDK
+    function fbLogin() {
+        FB.login(function (response) {
+            if (response.authResponse) {
+                // Get and display the user profile data
+                getFbUserData();
+            } else {
+                document.getElementById('status').innerHTML = 'User cancelled login or did not fully authorize.';
+            }
+        }, { scope: 'email' });
+    }
+
+    // Fetch the user profile data from facebook
+    function getFbUserData() {
+        FB.api('/me', { locale: 'en_US', fields: 'id,first_name,last_name,email,link,gender,locale,picture' },
+            function (response) {
+                var data = {
+                    "FirstName": response.first_name,
+                    "LastName": response.last_name,
+                    "Address": "a",
+                    "City": "a",
+                    "State": "a",
+                    "Country": "a",
+                    "Zip": "22178",
+                    "CellPhone": "423425345345",
+                    "HomePhone": "5345345436456",
+                    "Email": response.email,
+                    "Username": response.id,
+                    "password": "Test@123",
+                    "PasswordConfirmation": "Test@123",
+                    "sellercode": "103656354925728"
+                }
+                $.ajax({
+                    url: "https://shopalive.p.rapidapi.com/v1/Users/Login",
+                    type: "post",
+                    contentType: "application/json",
+                    headers: {
+                        "x-rapidapi-key": rapidApiKey,
+                        "x-rapidapi-host": rapidApiHost
+                    },
+                    data: JSON.stringify({
+                        "username": response.id,
+                        "password": "Test@123",
+                        "sellerCode": "103656354925728"
+                    }),
+                    success: function (response, status) {
+                        if (status == "success") {
+                            sessionStorage.setItem('Login', 'yes');
+                            localStorage.setItem("SelleruserId", "@Model.Uid")
+                            localStorage.setItem("SellertenantId", "@Model.Tid")
+                            localStorage.setItem("SellerPageId", "@Model.PageId")
+                            localStorage.setItem("userId", response.userID)
+                            localStorage.setItem("tenantId", response.tenantID)
+                            localStorage.setItem("roleName", response.roleName)
+                        }
+                    },
+                    error: function (error) {
+                        $.ajax({
+                            url: "https://shopalive.p.rapidapi.com/v1/Users",
+                            type: "post",
+                            contentType: "application/json",
+                            headers: {
+                                "x-rapidapi-key": rapidApiKey,
+                                "x-rapidapi-host": rapidApiHost
+                            },
+                            data: JSON.stringify(data),
+                            success: function (res, status) {
+                                localStorage.setItem("userId", res)
+                                if (status == "success") {
+                                    $.ajax({
+                                        url: "https://shopalive.p.rapidapi.com/v1/Users/Approve",
+                                        type: "post",
+                                        headers: {
+                                            "x-rapidapi-key": rapidApiKey,
+                                            "x-rapidapi-host": rapidApiHost
+                                        },
+                                        data: JSON.stringify({
+                                            "ID": localStorage.getItem("userId"),
+                                            "IsApproved": 1,
+                                            "IsActive": 1,
+                                            "RoleName": "Buyer"
+                                        }),
+                                        success: function (resp, stat) {
+                                            if (stat == "success") {
+                                                sessionStorage.setItem('Login', 'yes');
+                                                localStorage.setItem("SelleruserId", "@Model.Uid")
+                                                localStorage.setItem("SellertenantId", "@Model.Tid")
+                                                localStorage.setItem("SellerPageId", "@Model.PageId")
+                                                localStorage.setItem("userId", resp.id)
+                                                localStorage.setItem("tenantId", resp.tenantID)
+                                                localStorage.setItem("roleName", resp.roleName)
+                                            }
+                                        },
+                                        error: function (error) {
+                                            console.log(error)
+                                        }
+                                    })
+                                }
+                            },
+                            error: function (error) {
+                                console.log(error)
+                            }
+                        })
+                    }
+                }).done(function (response, status) {
+                    if (status == "success") {
+                        location.href = '@Url.ActionLink("BuyerPageProduct", "Store")';
+                    }
+                }).fail(function () {
+                    FB.logout(function () {
+                        document.getElementById('fbLoginBtn').setAttribute("onclick", "fbLogin()");
+                        document.getElementById('fbLoginValue').innerHTML = 'Facebook';
+                        document.getElementById('status').innerHTML = '<p>Could Not Login!, Please Try Again!</p>';
+                    })
+                })
+                //document.getElementById('userData').innerHTML = '<h2>Facebook Profile Details</h2><p><img src="' + response.picture.data.url + '"/></p><p><b>FB ID:</b> ' + response.id + '</p><p><b>Name:</b> ' + response.first_name + ' ' + response.last_name + '</p><p><b>Email:</b> ' + response.email + '</p><p><b>Gender:</b> ' + response.gender + '</p><p><b>FB Profile:</b> <a target="_blank" href="' + response.link + '">click to view profile</a></p>';                    //document.getElementById('userData').innerHTML = '<h2>Facebook Profile Details</h2><p><img src="' + response.picture.data.url + '"/></p><p><b>FB ID:</b> ' + response.id + '</p><p><b>Name:</b> ' + response.first_name + ' ' + response.last_name + '</p><p><b>Email:</b> ' + response.email + '</p><p><b>Gender:</b> ' + response.gender + '</p><p><b>FB Profile:</b> <a target="_blank" href="' + response.link + '">click to view profile</a></p>';
+            });
+    }
+
+    // Logout from facebook
+    function fbLogout() {
+        FB.logout(function () {
+            document.getElementById('fbLoginBtn').setAttribute("onclick", "fbLogin()");
+            document.getElementById('fbLoginValue').innerHTML = 'Facebook';
+            //document.getElementById('userData').innerHTML = '';
+            document.getElementById('status').innerHTML = '<p>You have successfully logout from Facebook.</p>';
+        });
+    }
+</script>

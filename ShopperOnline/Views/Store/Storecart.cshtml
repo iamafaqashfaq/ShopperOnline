@@ -25,7 +25,7 @@
     <div class="page-content">
 
         <div class="page-title page-title-small">
-            <h2><a href="#" data-back-button><i class="fa fa-arrow-left"></i></a>Cart 1</h2>
+            <h2><a href="#" data-back-button><i class="fa fa-arrow-left"></i></a>Cart</h2>
             <a href="#" data-menu="menu-main" class="bg-fade-gray1-dark shadow-xl preload-img" data-src="images/avatars/5s.png"></a>
         </div>
         <div class="card header-card shape-rounded" data-card-height="150">
@@ -135,7 +135,7 @@
 
                                             <div class="divider mt-4"></div>
 
-                                            <a href="#" class="btn btn-full btn-sm rounded-sm bg-highlight font-800 text-uppercase">Proceed to Checkout</a>
+                                            <a href="#" class="btn btn-full btn-sm rounded-sm bg-highlight font-800 text-uppercase" onclick="checkout();">Proceed to Checkout</a>
                                         </div>
                                     </div>
                                 </div>
@@ -149,6 +149,10 @@
                     console.log(error)
                 }
             });
+        /////////////////checkout proceed function///////////////
+        function checkout() {
+            location.href = '@Url.ActionLink("Checkout", "Store")';
+        }
         /////////////////////Draft Update increase QTY///////////
         function plusqty(id) {
             var salePrice = document.getElementById(`salePrice${id}`).innerHTML;

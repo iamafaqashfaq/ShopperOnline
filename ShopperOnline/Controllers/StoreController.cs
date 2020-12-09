@@ -16,6 +16,27 @@ namespace ShopperOnline.Controllers
         {
             return View();
         }
+        public IActionResult Checkout()
+        {
+            return View();
+        }
+        public IActionResult BuyNowCheckout(string sku,string Q, string P, string N, string D,string GT)
+        {
+            var buyNowCheckoutVM = new BuyNowCheckoutVM
+            {
+                sku = sku,
+                name = N,
+                qty=Q,
+                salePrice=P,
+                description=D,
+                grandTotal=GT
+            };
+            return View(buyNowCheckoutVM);
+        }
+        public IActionResult BuyerPageProduct()
+        {
+            return View();
+        }
         public IActionResult Storecart()
         {
             return View();

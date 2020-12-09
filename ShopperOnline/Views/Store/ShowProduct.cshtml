@@ -12,8 +12,26 @@
     <div class="page-content">
 
         <div class="page-title page-title-small">
-            <h2><a href="#" data-back-button><i class="fa fa-arrow-left"></i></a>Product</h2>
-            <a href="#" data-menu="menu-main" class="bg-fade-gray1-dark shadow-xl preload-img" data-src="images/avatars/5s.png"></a>
+            <div class="container">
+                <div class="row">
+                    <div class="col-6">
+                        <h2 style="font-size:19px!important;"><a href="#" data-back-button><i class="fa fa-arrow-left"></i></a>Product</h2>
+                    </div>
+                    @*<div class="col-6 ">
+                        <h2 class="float-right" onclick="getURL();">
+                            <a><i class="fas fa-paperclip"></i> get Link</a>
+                        </h2>
+                    </div>*@
+                    <div class="col-6">
+                            <a data-toggle="modal" data-target="#exampleModal" class="text-white font-20 pt-2 float-right" id="MainNavHelp"
+                               href="#myModal" onclick="getURL();"><i class="fas fa-link pr-2"></i>GetLink</a>
+                    </div>
+
+                </div>
+            </div>
+
+           
+            
         </div>
         <div class="card header-card shape-rounded" data-card-height="150">
             <div class="card-overlay bg-highlight opacity-95"></div>
@@ -35,9 +53,60 @@
 <div id="footer-bar" class="footer-bar-5">
     <a asp-action="Index" asp-controller="Home" class="active-nav"><i data-feather="home" data-feather-line="1" data-feather-size="21" data-feather-color="blue2-dark" data-feather-bg="blue2-fade-light"></i><span>Home</span></a>
 </div>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="row text-center">
+                    <div class="col-6 pr-0">
+
+                        <div class="input-style input-style-2  input-required">
+
+                            <!-- <span class="color-highlight input-style-1-inactive">Link here</span> -->
+                            <input class="form-control form-control-sm" type="url" id="link" name="url" pattern="https://.*" size="30" style="border-color: rgb(107, 106, 106)!important;height: 43px!important;">
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <button type="button" onclick="myFunction();" class="btn btn-primary btn-sm  pt-2 " style="position: relative!important;top: 11%!important;"><i class="fas fa-link pr-2"></i>Copy Link</button>
+                    </div>
+                </div>
+
+
+
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>
 
 @section Scripts{
     <script>
+        function myFunction() {
+            /* Get the text field */
+            var copyText = document.getElementById("link");
+
+            /* Select the text field */
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+
+            /* Copy the text inside the text field */
+            document.execCommand("copy");
+        }
+        function getURL() {
+            document.getElementById("link").value = window.location.protocol + "//" + window.location.host + "/Account/LoginBuyerlink?uid=" + localStorage.getItem("userId") + "&tid=" + localStorage.getItem("tenantId") + "&PageId=@Model.PageId";
+        }
         $.ajax({
             url: "https://shopalive.p.rapidapi.com/v1/Items/Page/@Model.PageId",
             type: "get",
